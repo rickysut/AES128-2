@@ -77,7 +77,7 @@ public class MasterBarangController implements Initializable {
     private ObservableList<Barang> dataBarang;
     private int mode = 1;
     private int LastClick = -1;
-    private Locale locale = Locale.getDefault();
+    /*private Locale locale = Locale.getDefault();
     private final NumberFormat nf = DecimalFormat.getInstance();
     private ObjectProperty<BigDecimal> number = new SimpleObjectProperty<>();
    
@@ -103,7 +103,7 @@ public class MasterBarangController implements Initializable {
         return null;
     };
     TextFormatter<String> currFormatter = new TextFormatter<>(curr);
-    
+    */
     /**
      * Initializes the controller class.
      * @param url
@@ -126,12 +126,7 @@ public class MasterBarangController implements Initializable {
         brg_status.getItems().addAll(
                 "Aktif",
                 "Non-Aktif");
-       // brg_harga.textProperty().addListener(new ChangeListener<String>() {
-        //    @Override
-        //    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        //        newValue = nf.format(oldValue); //brg_harga.setText(oldValue);
-        //    }
-        //});
+       
         buildData();
         clearFields();
     } 
@@ -242,18 +237,14 @@ public class MasterBarangController implements Initializable {
                     Barang cm = new Barang();
                     cm.kode.set(rs.getString("kode"));
                     cm.nama.set(crypt.decrypt(rs.getString("nama")));
-                    cm.kategori.set(crypt.decrypt(rs.getString("kategori")));
                     cm.harga.set(crypt.decrypt(rs.getString("harga")));
-                    cm.stock.set(crypt.decrypt(rs.getString("stock")));
                     cm.status.set(rs.getString("status"));
                     dataBarang.add(cm); 
                 } else {
                     Barang cm = new Barang();
                     cm.kode.set(rs.getString("kode"));
                     cm.nama.set(rs.getString("nama"));
-                    cm.kategori.set(rs.getString("kategori"));
                     cm.harga.set(rs.getString("harga"));
-                    cm.stock.set(rs.getString("stock"));
                     cm.status.set(rs.getString("status"));
                     dataBarang.add(cm);
                 }
@@ -348,9 +339,7 @@ public class MasterBarangController implements Initializable {
        }
    }
    
-   @FXML protected void brg_stokpressed(KeyEvent event){
-       
-   }
+   
             
 }
 
