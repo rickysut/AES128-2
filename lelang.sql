@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50532
 File Encoding         : 65001
 
-Date: 2017-12-15 10:01:50
+Date: 2017-12-15 16:13:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,15 +43,17 @@ INSERT INTO `admin` VALUES ('ADM008', '865124774e0324e7090d31e6c445bb42', '13e2a
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE `barang` (
   `kode` varchar(16) NOT NULL,
-  `nama` varchar(32) NOT NULL DEFAULT '',
-  `harga` varchar(16) DEFAULT NULL,
-  `status` varchar(16) DEFAULT NULL,
+  `nama` varchar(128) NOT NULL DEFAULT '',
+  `harga` varchar(64) DEFAULT NULL,
+  `status` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`kode`,`nama`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of barang
 -- ----------------------------
+INSERT INTO `barang` VALUES ('BRG002', 'd1d883ec81188fa3930dc66d7b0a6418', '66ee7b8b1a8d0cdacfdcf2fd0224324e', 'Aktif');
+INSERT INTO `barang` VALUES ('BRG003', '8b3d1758a9aedb5f204ea7ce7f049e48', '21db3b38fcd1d47362ba88f773deaf30', 'Aktif');
 
 -- ----------------------------
 -- Table structure for `customer`
@@ -83,7 +85,7 @@ DROP TABLE IF EXISTS `detail_lelang`;
 CREATE TABLE `detail_lelang` (
   `kode_lelang` varchar(16) NOT NULL,
   `kode_barang` varchar(16) NOT NULL,
-  `harga` varchar(16) DEFAULT NULL,
+  `harga` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`kode_lelang`,`kode_barang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -97,8 +99,8 @@ CREATE TABLE `detail_lelang` (
 DROP TABLE IF EXISTS `lelang`;
 CREATE TABLE `lelang` (
   `kode_lelang` varchar(16) NOT NULL,
-  `kode_customer` varchar(16) DEFAULT NULL,
-  `tgl_lelang` varchar(16) DEFAULT NULL,
+  `kode_customer` varchar(32) DEFAULT NULL,
+  `tgl_lelang` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`kode_lelang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
