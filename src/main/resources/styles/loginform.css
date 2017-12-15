@@ -1,0 +1,17 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+
+.text-input{
+    -fx-prompt-text-fill: #FFFFFF; 
+    -fx-text-inner-color: yellow;
+}
+.text-input:focused {
+    -fx-prompt-text-fill: #FFFFFF; 
+    -fx-text-inner-color: yellow;
+}
+

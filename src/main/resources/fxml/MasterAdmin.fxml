@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="600.0" prefWidth="686.0" style="-fx-background-color: #35739F;" stylesheets="@../styles/adminform.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterAdminController">
+    <children>
+      <JFXTextField fx:id="adm_kode" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="57.0" prefHeight="25.0" prefWidth="67.0" promptText="Kode" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="adm_nama" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="123.0" prefHeight="25.0" prefWidth="285.0" promptText="Nama lengkap" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextArea fx:id="adm_alamat" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="187.0" prefHeight="30.0" prefWidth="285.0" promptText="Alamat" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextArea>
+      <JFXTextField fx:id="adm_email" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="262.0" prefHeight="25.0" prefWidth="285.0" promptText="Email" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="adm_telepon" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="57.0" prefHeight="25.0" prefWidth="285.0" promptText="Telepon" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="adm_username" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="123.0" prefHeight="25.0" prefWidth="285.0" promptText="Username" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="adm_password" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="187.0" prefHeight="25.0" prefWidth="285.0" promptText="Password" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXComboBox fx:id="adm_status" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="262.0" prefHeight="25.0" prefWidth="129.0" promptText="Pilih Status" unFocusColor="#e0e4c5" visibleRowCount="2" AnchorPane.rightAnchor="195.0" />
+      <TableView fx:id="adm_tableview" layoutX="28.0" layoutY="354.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="182.0" prefWidth="632.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="26.0">
+        <columns>
+          <TableColumn fx:id="colNama" prefWidth="250.0" text="Nama" />
+          <TableColumn fx:id="colUsername" prefWidth="200.0" text="Username" />
+            <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="155.0" text="Status" />
+        </columns>
+      </TableView>
+      <Group layoutX="206.0" layoutY="199.0" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="26.0">
+         <children>
+            <JFXButton fx:id="adm_newbut" alignment="CENTER" layoutX="85.0" layoutY="325.0" onAction="#adm_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="NEW" textAlignment="CENTER">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_closebut" alignment="CENTER" cancelButton="true" layoutX="208.0" layoutY="326.0" onAction="#adm_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="CLOSE" textAlignment="CENTER">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_deletebut" alignment="CENTER" layoutX="331.0" layoutY="325.0" onAction="#adm_deletebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="DELETE" textAlignment="CENTER">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_savebut" alignment="CENTER" defaultButton="true" layoutX="454.0" layoutY="325.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="SAVE" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.bottomAnchor="-321.0" AnchorPane.rightAnchor="-2.0">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+         </children>
+      </Group>
+      <JFXToggleButton fx:id="btnSwitch" layoutX="28.0" layoutY="525.0" onAction="#btnSwitchClick" text="Decrypt" textFill="#fffdfd" toggleColor="#0be432" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="28.0" />
+   </children>
+</AnchorPane>

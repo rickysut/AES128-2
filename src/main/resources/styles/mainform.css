@@ -1,0 +1,49 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.text-input{
+    -fx-prompt-text-fill: #FFFFFF; 
+    -fx-text-inner-color: #ECECEC;
+}
+.text-input:focused {
+    -fx-prompt-text-fill: #FFFFFF; 
+    -fx-text-inner-color: #ECECEC;
+}
+
+.combo-box:focused{
+    -fx-prompt-text-fill: #FFFFFF; 
+    -fx-text-inner-color: #ECECEC;
+}
+
+.combo-box .list-cell 
+{
+    
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-font-size : 14px
+}
+
+.combo-box-popup .list-view 
+{
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}    
+
+.combo-box-popup .list-view .list-cell 
+{
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
+{
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
