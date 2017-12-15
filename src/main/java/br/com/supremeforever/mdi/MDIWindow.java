@@ -97,6 +97,7 @@ public class MDIWindow extends BorderPane {
      */
     public MDIWindow(String mdiWindowID, ImageView logoImage, String title, Node content, boolean disableResize, boolean maximize) {
         this.disableResize = disableResize;
+        
         init(mdiWindowID, logoImage, title, content);
         if (maximize) {
             centerMdiWindow();
@@ -127,6 +128,18 @@ public class MDIWindow extends BorderPane {
     public void setMdiTitle(String title) {
         lblTitle.setText(title);
     }
+    
+    public void setCloseDisable(boolean state){
+        btnClose.setDisable(state);
+    }
+    
+    public void setMaxDisable(boolean state){
+        btnMaximize.setDisable(state);
+    }
+    
+    public void setMinDisable(boolean state){
+        btnMinimize.setDisable(state);
+    }
 
     private AnchorPane makeTitlePane(String title) {
         // HEADER:
@@ -156,7 +169,9 @@ public class MDIWindow extends BorderPane {
         btnMaximize.getStyleClass().add("controlButtons");
 //        btnMaximize.styleProperty().bind(StylesCSS.controlButtonsStyleProperty);
         btnMaximize.setOnMouseClicked((MouseEvent t) -> {
-            maximizeRestoreMdiWindow();
+            
+                maximizeRestoreMdiWindow();
+            
         });
         if (!disableResize) {
             paneTitle.getChildren().add(makeControls(btnMinimize, btnMaximize, btnClose));
@@ -181,27 +196,29 @@ public class MDIWindow extends BorderPane {
     public void maximizeRestoreMdiWindow() {
 
         Pane parent = (Pane) getParent();
-        if (isMaximized == false) {
-            lastX = getLayoutX();
-            lastY = getLayoutY();
-            previousHeightToResize = getHeight();
-            previousWidthToResize = getWidth();
-            isMaximized = true;
-            try {
-                btnMaximize.setGraphic(getImageFromAssets("restore.png"));
-            } catch (Exception ex) {
-                Logger.getLogger(MDIWindow.class.getName()).log(Level.SEVERE, null, ex);
+        if (!btnMaximize.isDisabled()){
+            if (isMaximized == false) {
+                lastX = getLayoutX();
+                lastY = getLayoutY();
+                previousHeightToResize = getHeight();
+                previousWidthToResize = getWidth();
+                isMaximized = true;
+                try {
+                    btnMaximize.setGraphic(getImageFromAssets("restore.png"));
+                } catch (Exception ex) {
+                    Logger.getLogger(MDIWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                addListenerToResizeMaximizedWindows();
+            } else {
+                setPrefSize(previousWidthToResize, previousHeightToResize);
+                isMaximized = false;
+                try {
+                    btnMaximize.setGraphic(getImageFromAssets("maximize.png"));
+                } catch (Exception ex) {
+                    Logger.getLogger(MDIWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                removeListenerToResizeMaximizedWindows();
             }
-            addListenerToResizeMaximizedWindows();
-        } else {
-            setPrefSize(previousWidthToResize, previousHeightToResize);
-            isMaximized = false;
-            try {
-                btnMaximize.setGraphic(getImageFromAssets("maximize.png"));
-            } catch (Exception ex) {
-                Logger.getLogger(MDIWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            removeListenerToResizeMaximizedWindows();
         }
     }
 

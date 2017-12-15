@@ -116,13 +116,18 @@ public class MainFormController implements Initializable {
         
         
         MDIWindow mdiWindow = new MDIWindow("Tentang",
-            new ImageView("/assets/admin.png"),
+            new ImageView("/assets/about.png"),
             "About",
-            content);
+            content, false, false);
         //Set MDI Size
-        mdiWindow.maxHeight(230);
-        mdiWindow.maxWidth(332);
-        mdiWindow.setMinSize(332, 230);
+        mdiWindow.maxHeight(250);
+        mdiWindow.maxWidth(340);
+        mdiWindow.setMinSize(340, 250);
+        mdiWindow.setCloseDisable(true);
+        mdiWindow.setMaxDisable(true);
+        mdiWindow.setMinDisable(true);
+        
+        
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
         
