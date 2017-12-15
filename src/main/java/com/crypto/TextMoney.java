@@ -44,9 +44,14 @@ public class TextMoney extends JFXTextField{
             super.replaceText(start, end, text);
             if (!valor.equalsIgnoreCase(""))
                 setText(formata(Double.parseDouble(valor)));
+            int CaretPos = getCaretPosition();
+            setCaretPosition(getText().length());
         }
     }
-
+    public void setCaretPosition(int pos){
+        positionCaret(pos);
+    }
+    
     @Override
     public void replaceSelection(String text) {
         // Delete or backspace user input.

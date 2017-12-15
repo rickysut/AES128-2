@@ -8,10 +8,10 @@ package com.crypto.model;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Barang {
-    public SimpleStringProperty kode = new SimpleStringProperty();
-    public SimpleStringProperty nama = new SimpleStringProperty();
-    public SimpleStringProperty harga = new SimpleStringProperty();
-    public SimpleStringProperty status = new SimpleStringProperty();
+    public SimpleStringProperty kode    = new SimpleStringProperty();
+    public SimpleStringProperty nama    = new SimpleStringProperty();
+    public SimpleStringProperty harga   = new SimpleStringProperty();
+    public SimpleStringProperty status  = new SimpleStringProperty();
     
     public String getKode(){
         return kode.get();

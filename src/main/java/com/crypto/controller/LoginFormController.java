@@ -11,23 +11,16 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import com.crypto.MainClass;
 import com.crypto.Prefs;
-import com.crypto.model.Admin;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class

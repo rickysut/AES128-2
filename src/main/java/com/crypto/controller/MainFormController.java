@@ -8,25 +8,21 @@ package com.crypto.controller;
 import br.com.supremeforever.mdi.MDICanvas;
 import br.com.supremeforever.mdi.MDIWindow;
 import com.crypto.LoginClass;
-import com.crypto.MainClass;
 import com.crypto.Prefs;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -108,7 +104,29 @@ public class MainFormController implements Initializable {
     }
     
     @FXML protected void admAboutClick(){
-        System.out.println("About...");
+        Node content = null;
+        try {
+            //FXMLLoader.load(getClass().getResource("/fxml/LoginForm.fxml"));
+            content = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"));
+        } 
+            catch (Exception e) {
+        }
+        count++;
+        //Create a Default MDI Withou Icon
+        
+        
+        MDIWindow mdiWindow = new MDIWindow("Tentang",
+            new ImageView("/assets/admin.png"),
+            "About",
+            content);
+        //Set MDI Size
+        mdiWindow.maxHeight(230);
+        mdiWindow.maxWidth(332);
+        mdiWindow.setMinSize(332, 230);
+        //Add it to the container
+        mdiCanvas.addMDIWindow(mdiWindow);
+        
+       
     }
     
     @FXML protected void onAdminMenuAction(ActionEvent event) {
