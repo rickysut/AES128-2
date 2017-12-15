@@ -11,8 +11,6 @@ public class Barang {
     public SimpleStringProperty kode = new SimpleStringProperty();
     public SimpleStringProperty nama = new SimpleStringProperty();
     public SimpleStringProperty harga = new SimpleStringProperty();
-    public SimpleStringProperty kategori = new SimpleStringProperty();
-    public SimpleStringProperty stock = new SimpleStringProperty();
     public SimpleStringProperty status = new SimpleStringProperty();
     
     public String getKode(){
@@ -27,12 +25,7 @@ public class Barang {
         return harga.get();
     }
     
-    public String getKategori(){
-        return kategori.get();
-    }
-    public String getStock(){
-        return stock.get();
-    }
+    
     public String getStatus(){
         return status.get();
     }
