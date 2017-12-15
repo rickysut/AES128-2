@@ -57,9 +57,7 @@ public class MasterBarangController implements Initializable {
     @FXML private AnchorPane paneBarang;
     @FXML private TableView<Barang> brg_tableview;
     @FXML private TableColumn<Barang, String> col_brgnama;
-    @FXML private TableColumn<Barang, String> col_brgkategori;
     @FXML private TableColumn<Barang, String> col_brgharga;
-    @FXML private TableColumn<Barang, String> col_brgstock;
     @FXML private TableColumn<Barang, String> col_brgstatus;
     @FXML private JFXButton brg_closebut;
     @FXML private JFXButton brg_savebut;
@@ -68,9 +66,7 @@ public class MasterBarangController implements Initializable {
     @FXML private JFXTextField brg_kode;
     @FXML private JFXTextField brg_nama;
     @FXML private JFXTextField brg_harga;
-    @FXML private JFXComboBox brg_kategori;
     @FXML private JFXComboBox brg_status;
-    @FXML private JFXTextField brg_stok;
     @FXML private JFXToggleButton btnSwitch;
     AES128 crypt;
     
@@ -120,9 +116,7 @@ public class MasterBarangController implements Initializable {
         assert brg_tableview != null : "fx:id=\"brg_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";
         
         col_brgnama.setCellValueFactory(new PropertyValueFactory<Barang, String>("nama"));
-        col_brgkategori.setCellValueFactory(new PropertyValueFactory<Barang, String>("kategori"));
         col_brgharga.setCellValueFactory(new PropertyValueFactory<Barang, String>("harga"));
-        col_brgstock.setCellValueFactory(new PropertyValueFactory<Barang, String>("stock"));
         col_brgstatus.setCellValueFactory(new PropertyValueFactory<Barang, String>("status"));
             
         
@@ -132,7 +126,6 @@ public class MasterBarangController implements Initializable {
         brg_status.getItems().addAll(
                 "Aktif",
                 "Non-Aktif");
-        brg_stok.setTextFormatter(textFormatter);
        // brg_harga.textProperty().addListener(new ChangeListener<String>() {
         //    @Override
         //    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -196,16 +189,14 @@ public class MasterBarangController implements Initializable {
     
     @FXML protected void brg_saveclick(ActionEvent event) throws SQLException {
         if (mode == 1){ //new record
-           String insert = "INSERT INTO barang(kode,nama,harga,kategori,stock,status) "
-                +  "VALUES (?,?,?,?,?,?)"; 
+           String insert = "INSERT INTO barang(kode,nama,harga,status) "
+                +  "VALUES (?,?,?,?)"; 
            
             pst = con.prepareStatement(insert);
             pst.setString(1, brg_kode.getText().toUpperCase());
             pst.setString(2, crypt.encrypt(brg_nama.getText()));
             pst.setString(3, crypt.encrypt(brg_harga.getText()));
-            pst.setString(4, brg_kategori.getSelectionModel().getSelectedItem().toString());
-            pst.setString(5, crypt.encrypt(brg_stok.getText()));
-            pst.setString(6, brg_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(4, brg_status.getSelectionModel().getSelectedItem().toString());
 
             int success = pst.executeUpdate();
             if (success == 1) {
@@ -217,16 +208,14 @@ public class MasterBarangController implements Initializable {
                 clearFields();
             }
         } else if (mode == 2) {
-            String updat = "UPDATE  barang set nama = ?, harga = ?, kategori = ?, stock = ?, status = ?" + 
+            String updat = "UPDATE  barang set nama = ?, harga = ?, status = ?" + 
                            " WHERE kode = ?";
            
             pst = con.prepareStatement(updat);
             pst.setString(1, crypt.encrypt(brg_nama.getText()));
             pst.setString(2, crypt.encrypt(brg_harga.getText()));
-            pst.setString(3, brg_kategori.getSelectionModel().getSelectedItem().toString());
-            pst.setString(4, crypt.encrypt(brg_stok.getText()));
-            pst.setString(5, brg_status.getSelectionModel().getSelectedItem().toString());
-            pst.setString(6, brg_kode.getText());    
+            pst.setString(3, brg_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(4, brg_kode.getText());    
             
             int success = pst.executeUpdate();
             if (success == 1) {
@@ -283,8 +272,6 @@ public class MasterBarangController implements Initializable {
         brg_kode.setText(getNewKode());
         brg_kode.setEditable(false);
         brg_nama.setText(null);
-        brg_stok.setText(null);
-        brg_kategori.getSelectionModel().clearSelection();
         brg_harga.setText(null);
         brg_status.getSelectionModel().clearSelection();
     }
@@ -326,8 +313,6 @@ public class MasterBarangController implements Initializable {
             brg_kode.setText(selectedData.getKode());
             brg_kode.setEditable(false);
             brg_nama.setText(selectedData.getNama());
-            brg_stok.setText(selectedData.getStock());
-            brg_kategori.getSelectionModel().select(selectedData.getKategori());
             brg_harga.setText(selectedData.getHarga());
             brg_status.getSelectionModel().select(selectedData.getStatus());
        }
@@ -342,8 +327,6 @@ public class MasterBarangController implements Initializable {
                 brg_kode.setText(selectedData.getKode());
                 brg_kode.setEditable(false);
                 brg_nama.setText(selectedData.getNama());
-                brg_stok.setText(selectedData.getStock());
-                brg_kategori.getSelectionModel().select(selectedData.getKategori());
                 brg_harga.setText(selectedData.getHarga());
                 brg_status.getSelectionModel().select(selectedData.getStatus());
             }
@@ -359,8 +342,6 @@ public class MasterBarangController implements Initializable {
                 brg_kode.setText(selectedData.getKode());
                 brg_kode.setEditable(false);
                 brg_nama.setText(selectedData.getNama());
-                brg_stok.setText(selectedData.getStock());
-                brg_kategori.getSelectionModel().select(selectedData.getKategori());
                 brg_harga.setText(selectedData.getHarga());
                 brg_status.getSelectionModel().select(selectedData.getStatus());
             }
