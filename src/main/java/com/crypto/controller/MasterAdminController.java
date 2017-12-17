@@ -11,10 +11,6 @@ import com.crypto.AES128;
 import com.crypto.model.Admin;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,8 +27,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -46,22 +45,25 @@ public class MasterAdminController implements Initializable {
     
     @FXML private AnchorPane mainPane;
     @FXML private TableView<Admin> adm_tableview;
-    @FXML private TableColumn<Admin, String> colNama;
-    @FXML private TableColumn<Admin, String> colUsername;
-    @FXML private TableColumn<Admin, String> colStatus;
+    @FXML private JFXButton adm_savebut;
     @FXML private JFXButton adm_closebut;
-    @FXML private JFXButton adm_editbut;
     @FXML private JFXButton adm_deletebut;
     @FXML private JFXButton adm_newbut;
-    @FXML private JFXTextField adm_kode;
-    @FXML private JFXTextField adm_nama;
-    @FXML private JFXTextArea adm_alamat;
-    @FXML private JFXTextField adm_email;
-    @FXML private JFXTextField adm_telepon;
-    @FXML private JFXTextField adm_username;
-    @FXML private JFXPasswordField adm_password;
-    @FXML private JFXComboBox adm_status;
+    @FXML private TextField adm_kode;
+    @FXML private TextField adm_nama;
+    @FXML private TextArea adm_alamat;
+    @FXML private TextField adm_email;
+    @FXML private TextField adm_telepon;
+    @FXML private TextField adm_username;
+    @FXML private PasswordField adm_password;
     @FXML private JFXToggleButton btnSwitch;
+    @FXML private TableColumn<Admin, String> colKode;
+    @FXML private TableColumn<Admin, String> colNama;
+    @FXML private TableColumn<Admin, String> colUsername;
+    @FXML private TableColumn<Admin, String> colPassword;
+    @FXML private TableColumn<Admin, String> colAlamat;
+    @FXML private TableColumn<Admin, String> colEmail;
+    @FXML private TableColumn<Admin, String> colTelepon;
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -77,13 +79,16 @@ public class MasterAdminController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         crypt = new AES128("abcdefghijuklmno0123456789012345", "1234567890abcdef" );
         
-        adm_status.getItems().addAll(
-                "Aktif",
-                "Non-Aktif");
+        
         assert adm_tableview != null : "fx:id=\"adm_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";
+        colKode.setCellValueFactory(new PropertyValueFactory<Admin, String>("kode"));
         colNama.setCellValueFactory(new PropertyValueFactory<Admin, String>("nama"));
+        colAlamat.setCellValueFactory(new PropertyValueFactory<Admin, String>("alamat"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<Admin, String>("email"));
+        colTelepon.setCellValueFactory(new PropertyValueFactory<Admin, String>("telp"));
         colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("username"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<Admin, String>("status"));
+        colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("password"));
+        
         
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
@@ -155,7 +160,7 @@ public class MasterAdminController implements Initializable {
             adm_telepon.setText(selectedData.getTelp());
             adm_username.setText(selectedData.getUsername());
             adm_password.setText(selectedData.getPassword());
-            adm_status.getSelectionModel().select(selectedData.getStatus());
+            //adm_status.getSelectionModel().select(selectedData.getStatus());
        }
     }
     
@@ -173,7 +178,7 @@ public class MasterAdminController implements Initializable {
                 adm_telepon.setText(selectedData.getTelp());
                 adm_username.setText(selectedData.getUsername());
                 adm_password.setText(selectedData.getPassword());
-                adm_status.getSelectionModel().select(selectedData.getStatus());
+                //adm_status.getSelectionModel().select(selectedData.getStatus());
             }
         }
     }
@@ -193,7 +198,7 @@ public class MasterAdminController implements Initializable {
                 adm_telepon.setText(selectedData.getTelp());
                 adm_username.setText(selectedData.getUsername());
                 adm_password.setText(selectedData.getPassword());
-                adm_status.getSelectionModel().select(selectedData.getStatus());
+                //adm_status.getSelectionModel().select(selectedData.getStatus());
             }
         }
     }
@@ -250,7 +255,7 @@ public class MasterAdminController implements Initializable {
             pst.setString(5, crypt.encrypt(adm_telepon.getText()));
             pst.setString(6, crypt.encrypt(adm_username.getText().toLowerCase()));
             pst.setString(7, crypt.encrypt(adm_password.getText()));
-            pst.setString(8, adm_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(8, "Aktif");
 
             int success = pst.executeUpdate();
             if (success == 1) {
@@ -272,7 +277,7 @@ public class MasterAdminController implements Initializable {
             pst.setString(4, crypt.encrypt(adm_telepon.getText()));
             pst.setString(5, crypt.encrypt(adm_username.getText().toLowerCase()));
             pst.setString(6, crypt.encrypt(adm_password.getText()));
-            pst.setString(7, adm_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(7, "Aktif");
             pst.setString(8, adm_kode.getText());    
             
             int success = pst.executeUpdate();
@@ -297,7 +302,6 @@ public class MasterAdminController implements Initializable {
         adm_telepon.setText(null);
         adm_username.setText(null);
         adm_password.setText(null);
-        adm_status.getSelectionModel().clearSelection();
         adm_nama.requestFocus();
     }
     

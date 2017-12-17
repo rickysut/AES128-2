@@ -8,6 +8,7 @@ package com.crypto.controller;
 import br.com.supremeforever.mdi.MDIWindow;
 import br.com.supremeforever.mdi.Utility;
 import com.crypto.AES128;
+import com.crypto.TextMoney;
 
 import com.crypto.model.Barang;
 import com.crypto.utility.DbHandler;
@@ -44,6 +45,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -58,15 +60,14 @@ public class MasterBarangController implements Initializable {
     @FXML private TableView<Barang> brg_tableview;
     @FXML private TableColumn<Barang, String> col_brgnama;
     @FXML private TableColumn<Barang, String> col_brgharga;
-    @FXML private TableColumn<Barang, String> col_brgstatus;
+    @FXML private TableColumn<Barang, String> col_brgkode;
     @FXML private JFXButton brg_closebut;
     @FXML private JFXButton brg_savebut;
     @FXML private JFXButton brg_deletebut;
     @FXML private JFXButton brg_newbut;
-    @FXML private JFXTextField brg_kode;
-    @FXML private JFXTextField brg_nama;
-    @FXML private JFXTextField brg_harga;
-    @FXML private JFXComboBox brg_status;
+    @FXML private TextField brg_kode;
+    @FXML private TextField brg_nama;
+    @FXML private TextMoney brg_harga;
     @FXML private JFXToggleButton btnSwitch;
     AES128 crypt;
     
@@ -77,33 +78,7 @@ public class MasterBarangController implements Initializable {
     private ObservableList<Barang> dataBarang;
     private int mode = 1;
     private int LastClick = -1;
-    /*private Locale locale = Locale.getDefault();
-    private final NumberFormat nf = DecimalFormat.getInstance();
-    private ObjectProperty<BigDecimal> number = new SimpleObjectProperty<>();
-   
     
-    UnaryOperator<Change> filter = change -> {
-        String text = change.getText();
-
-        if (text.matches("[0-9]*")) {
-            return change;
-        }
-
-        return null;
-    };
-    TextFormatter<String> textFormatter = new TextFormatter<>(filter);
-    
-    UnaryOperator<Change> curr = change -> {
-        String text = change.getText();
-
-        if (text.matches("[0-9]*")) {
-            return change;
-        }
-
-        return null;
-    };
-    TextFormatter<String> currFormatter = new TextFormatter<>(curr);
-    */
     /**
      * Initializes the controller class.
      * @param url
@@ -117,15 +92,13 @@ public class MasterBarangController implements Initializable {
         
         col_brgnama.setCellValueFactory(new PropertyValueFactory<Barang, String>("nama"));
         col_brgharga.setCellValueFactory(new PropertyValueFactory<Barang, String>("harga"));
-        col_brgstatus.setCellValueFactory(new PropertyValueFactory<Barang, String>("status"));
+        col_brgkode.setCellValueFactory(new PropertyValueFactory<Barang, String>("kode"));
             
         
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
         
-        brg_status.getItems().addAll(
-                "Aktif",
-                "Non-Aktif");
+        
        
         buildData();
         clearFields();
@@ -191,7 +164,7 @@ public class MasterBarangController implements Initializable {
             pst.setString(1, brg_kode.getText().toUpperCase());
             pst.setString(2, crypt.encrypt(brg_nama.getText()));
             pst.setString(3, crypt.encrypt(brg_harga.getText()));
-            pst.setString(4, brg_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(4, "Aktif");
 
             int success = pst.executeUpdate();
             if (success == 1) {
@@ -209,7 +182,7 @@ public class MasterBarangController implements Initializable {
             pst = con.prepareStatement(updat);
             pst.setString(1, crypt.encrypt(brg_nama.getText()));
             pst.setString(2, crypt.encrypt(brg_harga.getText()));
-            pst.setString(3, brg_status.getSelectionModel().getSelectedItem().toString());
+            pst.setString(3, "Aktif");
             pst.setString(4, brg_kode.getText());    
             
             int success = pst.executeUpdate();
@@ -264,7 +237,6 @@ public class MasterBarangController implements Initializable {
         brg_kode.setEditable(false);
         brg_nama.setText(null);
         brg_harga.setText(null);
-        brg_status.getSelectionModel().clearSelection();
     }
 
     private String getNewKode() {
@@ -305,7 +277,6 @@ public class MasterBarangController implements Initializable {
             brg_kode.setEditable(false);
             brg_nama.setText(selectedData.getNama());
             brg_harga.setText(selectedData.getHarga());
-            brg_status.getSelectionModel().select(selectedData.getStatus());
        }
     }
     
@@ -319,7 +290,6 @@ public class MasterBarangController implements Initializable {
                 brg_kode.setEditable(false);
                 brg_nama.setText(selectedData.getNama());
                 brg_harga.setText(selectedData.getHarga());
-                brg_status.getSelectionModel().select(selectedData.getStatus());
             }
         } 
     }
@@ -334,7 +304,6 @@ public class MasterBarangController implements Initializable {
                 brg_kode.setEditable(false);
                 brg_nama.setText(selectedData.getNama());
                 brg_harga.setText(selectedData.getHarga());
-                brg_status.getSelectionModel().select(selectedData.getStatus());
             }
        }
    }

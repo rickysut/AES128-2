@@ -5,17 +5,15 @@
  */
 package com.crypto;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-import com.jfoenix.controls.JFXTextField;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import javafx.scene.control.TextField;
 
 /**
  *
  * @author Asus-Ricky
  */
-public class TextMoney extends JFXTextField{
+public class TextMoney extends TextField{
     private int maxlength;
     private String valor = "";
 
@@ -64,7 +62,7 @@ public class TextMoney extends JFXTextField{
                 // text = MascaraFinanceira.show(text);
                 text = text.substring(0, maxlength - getText().length());
             }
-            super.replaceSelection(text);
+            super.replaceSelection(text); 
         }
     }
 

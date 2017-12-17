@@ -7,12 +7,21 @@
 }
 
 .text-input{
-    -fx-prompt-text-fill: #FFFFFF; 
-    -fx-text-inner-color: #FFFFFF;
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
 }
 .text-input:focused {
-    -fx-prompt-text-fill: #FFFFFF; 
-    -fx-text-inner-color: #FFFFFF;
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+
+.text-area{
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+.text-area:focused {
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
 }
 
 /*******************************************************************************

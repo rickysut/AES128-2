@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import com.jfoenix.validation.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
@@ -11,39 +12,58 @@
 <?import javafx.scene.layout.*?>
 <?import com.crypto.TextMoney?>
 
-<AnchorPane id="AnchorPane" fx:id="paneBarang" prefHeight="524.0" prefWidth="639.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" stylesheets="@../styles/masterbarang.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterBarangController">
+<AnchorPane id="AnchorPane" fx:id="paneBarang" prefHeight="439.0" prefWidth="639.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" stylesheets="@../styles/masterbarang.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterBarangController">
    <children>
-      <JFXTextField fx:id="brg_kode" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="55.0" prefHeight="25.0" prefWidth="67.0" promptText="Kode" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      <Text fill="YELLOW" layoutX="27.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INPUT DATA BARANG" textAlignment="CENTER" wrappingWidth="590.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="28.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Barang" AnchorPane.leftAnchor="28.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextField fx:id="brg_nama" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="121.0" prefHeight="25.0" prefWidth="285.0" promptText="Nama Barang" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      </Text>
+      <TextField fx:id="brg_kode" layoutX="137.0" layoutY="68.0" prefHeight="30.0" prefWidth="191.0" promptText="Kode" AnchorPane.leftAnchor="140.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <TextMoney fx:id="brg_harga" alignment="CENTER_RIGHT" focusColor="#faff07" layoutX="346.0" layoutY="55.0" prefHeight="30.0" prefWidth="191.0" promptText="Harga" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="28.0">
+      </TextField>
+      <Text fill="WHITE" layoutX="26.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Barang" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="brg_nama" alignment="TOP_LEFT" layoutX="137.0" layoutY="108.0" prefHeight="30.0" prefWidth="191.0" promptText="Nama" AnchorPane.leftAnchor="140.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text fill="WHITE" layoutX="28.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga" AnchorPane.leftAnchor="28.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextMoney fx:id="brg_harga" alignment="CENTER_RIGHT" layoutX="137.0" layoutY="149.0" prefHeight="30.0" prefWidth="191.0" promptText="Harga" AnchorPane.leftAnchor="140.0">
          <font>
             <Font size="14.0" />
          </font>
      </TextMoney>
-      <JFXComboBox fx:id="brg_status" focusColor="#faff07" labelFloat="true" layoutX="352.0" layoutY="121.0" prefHeight="30.0" prefWidth="191.0" promptText="Status" unFocusColor="#e0e4c5" visibleRowCount="2" AnchorPane.rightAnchor="28.0" />
-      <TableView fx:id="brg_tableview" layoutX="28.0" layoutY="200.0" onKeyPressed="#brg_tableviewpressed" onKeyReleased="#brg_tblviewreleased" onMouseClicked="#brg_tableviewclick" prefHeight="169.0" prefWidth="583.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="200.0">
-        <columns>
-          <TableColumn fx:id="col_brgnama" prefWidth="349.0" text="Nama Barang" />
-          <TableColumn fx:id="col_brgharga" prefWidth="104.0" text="Harga" />
-          <TableColumn fx:id="col_brgstatus" prefWidth="75.0" text="Status" />
-        </columns>
-      </TableView>
-      <Group AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="28.0">
+      <Group layoutX="39.0" layoutY="-217.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="178.0">
          <children>
-            <JFXButton fx:id="brg_newbut" alignment="CENTER" layoutX="103.0" layoutY="408.0" onAction="#brg_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="NEW" />
-            <JFXButton fx:id="brg_closebut" alignment="CENTER" cancelButton="true" layoutX="229.0" layoutY="408.0" onAction="#brg_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="CLOSE" />
-            <JFXButton fx:id="brg_deletebut" alignment="CENTER" layoutX="352.0" layoutY="408.0" onAction="#brg_deleteclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="DELETE" />
-            <JFXButton fx:id="brg_savebut" defaultButton="true" layoutX="469.0" layoutY="408.0" onAction="#brg_saveclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="SAVE" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="28.0" />
+            <JFXButton fx:id="brg_newbut" alignment="CENTER" layoutX="211.0" layoutY="408.0" onAction="#brg_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="BARU" />
+            <JFXButton fx:id="brg_closebut" alignment="CENTER" cancelButton="true" layoutX="99.0" layoutY="408.0" onAction="#brg_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="BATAL" />
+            <JFXButton fx:id="brg_deletebut" alignment="CENTER" layoutX="323.0" layoutY="408.0" onAction="#brg_deleteclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="HAPUS" />
+            <JFXButton fx:id="brg_savebut" defaultButton="true" layoutX="-12.0" layoutY="408.0" onAction="#brg_saveclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="-408.0" AnchorPane.rightAnchor="367.0" />
          </children>
       </Group>
-      <JFXToggleButton fx:id="btnSwitch" layoutX="28.0" layoutY="449.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="116.0" text="Decrypt" textFill="WHITE" toggleColor="#06ff82" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="28.0" />
+      <JFXToggleButton fx:id="btnSwitch" layoutX="496.0" layoutY="182.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="116.0" text="Decrypt" textFill="WHITE" toggleColor="#06ff82" AnchorPane.bottomAnchor="199.0" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="28.0" />
+      <TableView fx:id="brg_tableview" layoutX="28.0" layoutY="266.0" onKeyPressed="#brg_tableviewpressed" onKeyReleased="#brg_tblviewreleased" onMouseClicked="#brg_tableviewclick" prefHeight="146.0" prefWidth="583.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="266.0">
+        <columns>
+          <TableColumn fx:id="col_brgkode" prefWidth="173.0" text="Kode" />
+          <TableColumn fx:id="col_brgnama" prefWidth="215.0" text="Nama Barang" />
+          <TableColumn fx:id="col_brgharga" prefWidth="163.0" text="Harga" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

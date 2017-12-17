@@ -13,73 +13,108 @@
 
 <AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="600.0" prefWidth="686.0" style="-fx-background-color: #35739F;" stylesheets="@../styles/adminform.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterAdminController">
     <children>
-      <JFXTextField fx:id="adm_kode" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="57.0" prefHeight="25.0" prefWidth="67.0" promptText="Kode" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      <Text fill="#f2ff02" layoutX="11.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INPUT DATA ADMIN" textAlignment="CENTER" wrappingWidth="632.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="28.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KODE" AnchorPane.leftAnchor="27.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextField fx:id="adm_nama" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="123.0" prefHeight="25.0" prefWidth="285.0" promptText="Nama lengkap" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      </Text>
+      <TextField fx:id="adm_kode" layoutX="141.0" layoutY="66.0" prefHeight="30.0" prefWidth="174.0" text="KODE" AnchorPane.leftAnchor="140.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextArea fx:id="adm_alamat" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="187.0" prefHeight="30.0" prefWidth="285.0" promptText="Alamat" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      </TextField>
+      <Text fill="WHITE" layoutX="28.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Lengkap" AnchorPane.leftAnchor="27.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextArea>
-      <JFXTextField fx:id="adm_email" focusColor="#faff07" labelFloat="true" layoutX="28.0" layoutY="262.0" prefHeight="25.0" prefWidth="285.0" promptText="Email" unFocusColor="#e0e4c5" AnchorPane.leftAnchor="28.0">
+      </Text>
+      <TextField fx:id="adm_nama" layoutX="141.0" layoutY="108.0" prefHeight="30.0" prefWidth="174.0" promptText="nama lengkap" AnchorPane.leftAnchor="140.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextField fx:id="adm_telepon" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="57.0" prefHeight="25.0" prefWidth="285.0" promptText="Telepon" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+      </TextField>
+      <Text fill="WHITE" layoutX="27.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.leftAnchor="27.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXTextField fx:id="adm_username" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="123.0" prefHeight="25.0" prefWidth="285.0" promptText="Username" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+      </Text>
+      <TextField fx:id="adm_username" layoutX="140.0" layoutY="151.0" prefHeight="30.0" prefWidth="174.0" promptText="username" AnchorPane.leftAnchor="140.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXTextField>
-      <JFXPasswordField fx:id="adm_password" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="187.0" prefHeight="25.0" prefWidth="285.0" promptText="Password" unFocusColor="#e0e4c5" AnchorPane.rightAnchor="39.0">
+      </TextField>
+      <Text fill="WHITE" layoutX="27.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.leftAnchor="27.0">
          <font>
             <Font size="14.0" />
          </font>
-      </JFXPasswordField>
-      <JFXComboBox fx:id="adm_status" focusColor="#faff07" labelFloat="true" layoutX="362.0" layoutY="262.0" prefHeight="25.0" prefWidth="129.0" promptText="Pilih Status" unFocusColor="#e0e4c5" visibleRowCount="2" AnchorPane.rightAnchor="195.0" />
-      <TableView fx:id="adm_tableview" layoutX="28.0" layoutY="354.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="182.0" prefWidth="632.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="26.0">
+      </Text>
+      <PasswordField fx:id="adm_password" layoutX="140.0" layoutY="195.0" prefHeight="25.0" prefWidth="174.0" promptText="password" AnchorPane.leftAnchor="140.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Text fill="WHITE" layoutX="23.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alamat" AnchorPane.leftAnchor="27.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="adm_alamat" layoutX="140.0" layoutY="233.0" prefHeight="77.0" prefWidth="224.0" promptText="alamat" wrapText="true" AnchorPane.leftAnchor="140.0" />
+      <Text fill="WHITE" layoutX="375.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" AnchorPane.rightAnchor="279.955078125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="adm_email" layoutX="488.0" layoutY="66.0" prefHeight="30.0" prefWidth="174.0" promptText="email" AnchorPane.rightAnchor="27.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text fill="WHITE" layoutX="375.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Telepon" AnchorPane.rightAnchor="240.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="adm_telepon" layoutX="488.0" layoutY="108.0" prefHeight="30.0" prefWidth="174.0" promptText="no telepon" AnchorPane.rightAnchor="27.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="adm_savebut" alignment="CENTER" defaultButton="true" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
+         <effect>
+            <Shadow />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="adm_closebut" alignment="CENTER" cancelButton="true" layoutX="140.0" layoutY="331.0" onAction="#adm_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" AnchorPane.leftAnchor="140.0">
+         <effect>
+            <Shadow />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="adm_newbut" alignment="CENTER" layoutX="251.0" layoutY="331.0" onAction="#adm_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="BARU" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
+         <effect>
+            <Shadow />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="adm_deletebut" alignment="CENTER" layoutX="361.0" layoutY="331.0" onAction="#adm_deletebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" AnchorPane.leftAnchor="361.0">
+         <effect>
+            <Shadow />
+         </effect>
+      </JFXButton>
+      <JFXToggleButton fx:id="btnSwitch" layoutX="527.0" layoutY="322.0" onAction="#btnSwitchClick" text="Decrypt" textFill="#fffdfd" toggleColor="#0be432" AnchorPane.rightAnchor="49.0" />
+      <TableView fx:id="adm_tableview" layoutX="27.0" layoutY="390.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="192.0" prefWidth="634.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
         <columns>
-          <TableColumn fx:id="colNama" prefWidth="250.0" text="Nama" />
-          <TableColumn fx:id="colUsername" prefWidth="200.0" text="Username" />
-            <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="155.0" text="Status" />
+            <TableColumn fx:id="colKode" prefWidth="58.0" text="Kode" />
+          <TableColumn fx:id="colNama" prefWidth="110.0" text="Nama Lengkap" />
+          <TableColumn fx:id="colUsername" prefWidth="82.0" text="Username" />
+            <TableColumn fx:id="colPassword" prefWidth="86.0" text="Password" />
+            <TableColumn fx:id="colAlamat" prefWidth="77.0" text="Alamat" />
+            <TableColumn fx:id="colEmail" maxWidth="191.0" minWidth="0.0" prefWidth="95.0" text="Email" />
+            <TableColumn fx:id="colTelepon" maxWidth="100.0" prefWidth="171.0" text="No Telepon" />
         </columns>
       </TableView>
-      <Group layoutX="206.0" layoutY="199.0" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="26.0">
-         <children>
-            <JFXButton fx:id="adm_newbut" alignment="CENTER" layoutX="85.0" layoutY="325.0" onAction="#adm_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="NEW" textAlignment="CENTER">
-               <effect>
-                  <Shadow />
-               </effect>
-            </JFXButton>
-            <JFXButton fx:id="adm_closebut" alignment="CENTER" cancelButton="true" layoutX="208.0" layoutY="326.0" onAction="#adm_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="CLOSE" textAlignment="CENTER">
-               <effect>
-                  <Shadow />
-               </effect>
-            </JFXButton>
-            <JFXButton fx:id="adm_deletebut" alignment="CENTER" layoutX="331.0" layoutY="325.0" onAction="#adm_deletebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="DELETE" textAlignment="CENTER">
-               <effect>
-                  <Shadow />
-               </effect>
-            </JFXButton>
-            <JFXButton fx:id="adm_savebut" alignment="CENTER" defaultButton="true" layoutX="454.0" layoutY="325.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="SAVE" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.bottomAnchor="-321.0" AnchorPane.rightAnchor="-2.0">
-               <effect>
-                  <Shadow />
-               </effect>
-            </JFXButton>
-         </children>
-      </Group>
-      <JFXToggleButton fx:id="btnSwitch" layoutX="28.0" layoutY="525.0" onAction="#btnSwitchClick" text="Decrypt" textFill="#fffdfd" toggleColor="#0be432" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="28.0" />
    </children>
 </AnchorPane>

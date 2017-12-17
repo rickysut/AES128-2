@@ -151,7 +151,7 @@ public class MainFormController implements Initializable {
             "Admin Management",
             content);
         //Set MDI Size
-        mdiWindow.setMinSize(690, 620);
+        mdiWindow.setMinSize(690, 630);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
         
