@@ -7,4 +7,7 @@ public class Configs {
     protected static String dbuser = "root";
     protected static String dbpass = "root";
     protected static String dbname = "lelang";
+    public static String aespassword = "abcdefghijuklmno0123456789012345";
+    public static String aesiv = "1234567890abcdef";
+    
 }

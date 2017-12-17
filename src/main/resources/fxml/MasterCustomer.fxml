@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="paneCustomer" prefHeight="543.0" prefWidth="670.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterCustomerController">
+    <stylesheets>
+        <URL value="@/styles/mastercustomer.css" />
+    </stylesheets>
+   <children>
+      <Text fill="YELLOW" layoutX="53.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INPUT DATA CUSTOMER" textAlignment="CENTER" wrappingWidth="563.916015625" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_kode" layoutX="135.0" layoutY="57.0" promptText="Kode" AnchorPane.leftAnchor="135.0" />
+      <Text fill="WHITE" layoutX="26.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Lengkap" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_nama" layoutX="135.0" layoutY="93.0" promptText="Nama Lengkap" AnchorPane.leftAnchor="135.0" />
+      <Text fill="WHITE" layoutX="25.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama FB" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_namafb" layoutX="135.0" layoutY="127.0" promptText="Nama FB" AnchorPane.leftAnchor="135.0" />
+      <Text fill="WHITE" layoutX="24.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alamat" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="cust_alamat" layoutX="135.0" layoutY="161.0" prefHeight="131.0" prefWidth="200.0" promptText="Alamat" wrapText="true" AnchorPane.leftAnchor="135.0" />
+      <Text fill="WHITE" layoutX="437.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kota" AnchorPane.rightAnchor="204.80859375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_kota" layoutX="487.0" layoutY="58.0" promptText="Kota" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="414.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provinsi" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_provinsi" layoutX="487.0" layoutY="92.0" promptText="Provinsi" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="405.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Pos" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_kodepos" layoutX="487.0" layoutY="127.0" promptText="Kode Pos" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="379.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Telepon 1" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_telp1" layoutX="487.0" layoutY="161.0" promptText="No Telepon 1" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="379.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Telepon 2" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_telp2" layoutX="487.0" layoutY="195.0" promptText="No Telepon 2" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="419.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL FB" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_urlfb" layoutX="487.0" layoutY="230.0" promptText="URL FB" AnchorPane.rightAnchor="34.0" />
+      <Text fill="WHITE" layoutX="430.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" AnchorPane.rightAnchor="205.6171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cust_email" layoutX="487.0" layoutY="263.0" promptText="Email" AnchorPane.rightAnchor="34.0" />
+      <Group layoutX="-3.0" AnchorPane.leftAnchor="33.0">
+         <children>
+            <JFXButton fx:id="but_new" layoutX="233.0" layoutY="317.0" onAction="#but_newclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFF00;" text="BARU" textAlignment="CENTER" />
+            <JFXButton fx:id="but_cancel" cancelButton="true" layoutX="135.0" layoutY="317.0" onAction="#but_cancelclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
+            <JFXButton fx:id="but_delete" layoutX="327.0" layoutY="317.0" onAction="#but_deleteclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" />
+            <JFXButton fx:id="but_ok" defaultButton="true" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
+         </children>
+      </Group>
+      <JFXToggleButton fx:id="btn_switch" layoutX="468.0" layoutY="306.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" AnchorPane.leftAnchor="468.0" />
+      <TableView fx:id="cust_table" layoutX="35.0" layoutY="370.0" onKeyPressed="#cust_tablepressed" onKeyReleased="#cust_tablereleased" onMouseClicked="#cust_tableclick" prefHeight="151.0" prefWidth="599.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="370.0">
+        <columns>
+          <TableColumn fx:id="col_kode" maxWidth="100.0" prefWidth="40.0" text="Kode" />
+          <TableColumn fx:id="col_nama" prefWidth="40.0" text="Nama Lengkap" />
+            <TableColumn fx:id="col_namafb" prefWidth="60.0" text="Nama FB" />
+            <TableColumn fx:id="col_alamat" prefWidth="40.0" text="Alamat" />
+            <TableColumn fx:id="col_kota" prefWidth="31.0" text="Kota" />
+            <TableColumn fx:id="col_provinsi" prefWidth="50.0" text="Provinsi" />
+            <TableColumn fx:id="col_kodepos" prefWidth="54.0" text="Kode Pos" />
+            <TableColumn fx:id="col_telp1" prefWidth="75.0" text="No Telepon 1" />
+            <TableColumn fx:id="col_telp2" prefWidth="75.0" text="No Telepon 2" />
+            <TableColumn fx:id="col_urlfb" prefWidth="75.0" text="URL FB" />
+            <TableColumn fx:id="col_email" prefWidth="75.0" text="Email" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

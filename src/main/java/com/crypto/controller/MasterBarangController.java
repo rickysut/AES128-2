@@ -13,29 +13,15 @@ import com.crypto.TextMoney;
 import com.crypto.model.Barang;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,12 +32,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.StringConverter;
 
 
 public class MasterBarangController implements Initializable {
@@ -87,8 +70,8 @@ public class MasterBarangController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        crypt = new AES128("abcdefghijuklmno0123456789012345", "1234567890abcdef" );
-        assert brg_tableview != null : "fx:id=\"brg_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";
+        crypt = new AES128();
+        assert brg_tableview != null : "fx:id=\"brg_tableview\" was not injected: check your FXML file 'MasterBarang.fxml'.";
         
         col_brgnama.setCellValueFactory(new PropertyValueFactory<Barang, String>("nama"));
         col_brgharga.setCellValueFactory(new PropertyValueFactory<Barang, String>("harga"));

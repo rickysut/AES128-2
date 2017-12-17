@@ -77,7 +77,7 @@ public class MasterAdminController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        crypt = new AES128("abcdefghijuklmno0123456789012345", "1234567890abcdef" );
+        crypt = new AES128();
         
         
         assert adm_tableview != null : "fx:id=\"adm_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";

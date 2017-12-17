@@ -41,7 +41,7 @@ public class LoginFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       crypt = new AES128("abcdefghijuklmno0123456789012345", "1234567890abcdef" );
+       crypt = new AES128();
        objDBHandler = new DbHandler();
        con = objDBHandler.getConnection();
        

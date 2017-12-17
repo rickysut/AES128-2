@@ -20,7 +20,7 @@
             <items>
               <MenuItem fx:id="adminMenu" mnemonicParsing="false" onAction="#onAdminMenuAction" text="Admin Management" />
                   <MenuItem fx:id="admBarang" mnemonicParsing="false" onAction="#admBarangClick" text="Master Barang" />
-                  <MenuItem fx:id="admCustomer" mnemonicParsing="false" text="Customer" />
+                  <MenuItem fx:id="admCustomer" mnemonicParsing="false" onAction="#admCustClick" text="Customer" />
                   <MenuItem fx:id="admLelang" mnemonicParsing="false" text="Setup Lelang" />
               <MenuItem fx:id="admClose" mnemonicParsing="false" onAction="#onMenuClose" text="Close">
                      <accelerator>

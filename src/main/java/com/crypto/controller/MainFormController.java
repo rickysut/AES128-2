@@ -180,5 +180,27 @@ public class MainFormController implements Initializable {
         mdiCanvas.addMDIWindow(mdiWindow);
     }
     
+     @FXML protected void admCustClick(ActionEvent event) {
+        Node content = null;
+        try {
+            //FXMLLoader.load(getClass().getResource("/fxml/LoginForm.fxml"));
+            content = FXMLLoader.load(getClass().getResource("/fxml/MasterCustomer.fxml"));
+        } 
+            catch (Exception e) {
+        }
+        count++;
+        //Create a Default MDI Withou Icon
+        
+        
+        MDIWindow mdiWindow = new MDIWindow("Customer",
+            new ImageView("/assets/customer.png"),
+            "Customer",
+            content);
+        //Set MDI Size
+        mdiWindow.setMinSize(680, 553);
+        //Add it to the container
+        mdiCanvas.addMDIWindow(mdiWindow);
+    }
+    
     
 }

@@ -1,0 +1,61 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.text-input{
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+.text-input:focused {
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+
+.text-area{
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+.text-area:focused {
+    -fx-prompt-text-fill: #DEDEDE; 
+    -fx-text-inner-color: #000000;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * ComboBox, ChoiceBox COMMON                                                 *
+ *                                                                             *
+ ******************************************************************************/
+.combo-box-base, .choice-box {
+    -fx-font-size : 14px;
+    -fx-prompt-text-fill: white;
+}
+
+.combo-box .cell{
+    
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.combo-box-base>.arrow-button>.arrow, .choice-box>.open-button>.arrow {
+    -fx-background-color: white;
+}
+
+.combo-box-base .arrow-button:hover .arrow, .spinner .increment-arrow-button:hover .increment-arrow,
+.spinner .decrement-arrow-button:hover .decrement-arrow {
+    -fx-background-color: yellow;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #158AFF;
+    -fx-text-fill: yellow;
+}
+

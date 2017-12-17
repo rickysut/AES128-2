@@ -5,11 +5,9 @@
  */
 package com.crypto;
 
-import java.math.BigInteger;
-import java.util.Arrays;
+import com.crypto.utility.Configs;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.lang3.StringUtils;
 
 
 /*
@@ -190,7 +188,22 @@ public class AES128 {
         return s.substring(0,i+1);
     }
     
-   
+   public AES128()
+    {
+        String z = Configs.aespassword;
+        this.iv = Configs.aesiv;
+        this.Nk = z.length()/4;
+        this.Nr = this.Nk + Nb + 2;
+        this.w = new int[Nb*(this.Nr+1)];
+        this.s = new int[4][Nb];
+        if (this.iv.length() != 16) {
+            System.out.println("The initialization vector must be 128 bits (or 16 characters) long.");
+        }
+        if (this.Nk != 4 && this.Nk != 6 && this.Nk != 8) {
+            System.out.println("Key is " + (this.Nk*32) + " bits long. *not* 128, 192, or 256.");
+        }
+        this.keyExpansion(z); // places expanded key in w
+    }
     
     public AES128(String z,  String iv)
     {
