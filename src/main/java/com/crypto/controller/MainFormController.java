@@ -152,6 +152,7 @@ public class MainFormController implements Initializable {
             content);
         //Set MDI Size
         mdiWindow.setMinSize(690, 630);
+        mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
         
@@ -176,6 +177,7 @@ public class MainFormController implements Initializable {
             content);
         //Set MDI Size
         mdiWindow.setMinSize(650, 500);
+        mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
     }
@@ -198,9 +200,36 @@ public class MainFormController implements Initializable {
             content);
         //Set MDI Size
         mdiWindow.setMinSize(680, 553);
+        mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
     }
     
+     @FXML protected void admLelangClick(){
+        Node content = null;
+        try {
+            //FXMLLoader.load(getClass().getResource("/fxml/LoginForm.fxml"));
+            content = FXMLLoader.load(getClass().getResource("/fxml/SetupLelang.fxml"));
+        } 
+            catch (Exception e) {
+        }
+        count++;
+        //Create a Default MDI Withou Icon
+        
+        
+        MDIWindow mdiWindow = new MDIWindow("Lelang",
+            new ImageView("/assets/auction.png"),
+            "Lelang",
+            content);
+        //Set MDI Size
+        mdiWindow.setMinSize(480, 375);
+        mdiWindow.setMaxDisable(true);
+        //Add it to the container
+        mdiCanvas.addMDIWindow(mdiWindow); 
+     }
+     
+     @FXML protected void admDetailBidClick(){
+         
+     }
     
 }

@@ -93,7 +93,7 @@
             <JFXButton fx:id="but_ok" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Group>
-      <JFXToggleButton fx:id="btn_switch" layoutX="468.0" layoutY="306.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" AnchorPane.leftAnchor="468.0" />
+      <JFXToggleButton fx:id="btn_switch" layoutX="468.0" layoutY="306.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="468.0" />
       <TableView fx:id="cust_table" layoutX="35.0" layoutY="370.0" onKeyPressed="#cust_tablepressed" onKeyReleased="#cust_tablereleased" onMouseClicked="#cust_tableclick" prefHeight="151.0" prefWidth="599.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="370.0">
         <columns>
           <TableColumn fx:id="col_kode" maxWidth="100.0" prefWidth="40.0" text="Kode" />
