@@ -55,7 +55,7 @@ public class MasterCustomerController implements Initializable {
     @FXML private TextField cust_email;
     @FXML private JFXButton but_ok;
     @FXML private JFXButton but_cancel;
-    @FXML private JFXButton but_new;
+    @FXML private JFXButton but_update;
     @FXML private JFXButton but_delete;
     @FXML private JFXToggleButton btn_switch;
     
@@ -88,17 +88,17 @@ public class MasterCustomerController implements Initializable {
         crypt = new AES128();
         assert cust_table != null : "fx:id=\"cust_table\" was not injected: check your FXML file 'MasterCustomer.fxml'.";
         
-        col_kode.setCellValueFactory(new PropertyValueFactory<Customer, String>("kode"));
-        col_nama.setCellValueFactory(new PropertyValueFactory<Customer, String>("nama"));
-        col_namafb.setCellValueFactory(new PropertyValueFactory<Customer, String>("namafb"));
-        col_alamat.setCellValueFactory(new PropertyValueFactory<Customer, String>("alamat"));
-        col_kota.setCellValueFactory(new PropertyValueFactory<Customer, String>("kota"));
-        col_provinsi.setCellValueFactory(new PropertyValueFactory<Customer, String>("provinsi"));
-        col_kodepos.setCellValueFactory(new PropertyValueFactory<Customer, String>("kodepos"));
-        col_telp1.setCellValueFactory(new PropertyValueFactory<Customer, String>("notelp1"));
-        col_telp2.setCellValueFactory(new PropertyValueFactory<Customer, String>("notelp2"));
-        col_urlfb.setCellValueFactory(new PropertyValueFactory<Customer, String>("urlfb"));
-        col_email.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
+        col_kode.setCellValueFactory(new PropertyValueFactory<Customer, String>("Kode"));
+        col_nama.setCellValueFactory(new PropertyValueFactory<Customer, String>("Nama"));
+        col_namafb.setCellValueFactory(new PropertyValueFactory<Customer, String>("NamaFB"));
+        col_alamat.setCellValueFactory(new PropertyValueFactory<Customer, String>("Alamat"));
+        col_kota.setCellValueFactory(new PropertyValueFactory<Customer, String>("Kota"));
+        col_provinsi.setCellValueFactory(new PropertyValueFactory<Customer, String>("Provinsi"));
+        col_kodepos.setCellValueFactory(new PropertyValueFactory<Customer, String>("KodePos"));
+        col_telp1.setCellValueFactory(new PropertyValueFactory<Customer, String>("NoTelp1"));
+        col_telp2.setCellValueFactory(new PropertyValueFactory<Customer, String>("NoTelp2"));
+        col_urlfb.setCellValueFactory(new PropertyValueFactory<Customer, String>("UrlFB"));
+        col_email.setCellValueFactory(new PropertyValueFactory<Customer, String>("Email"));
 
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
@@ -173,50 +173,82 @@ public class MasterCustomerController implements Initializable {
     
     @FXML protected void but_okclick() throws SQLException{
         if (mode == 1){ //new record
-           String insert = "INSERT INTO customer(kode,nama,nama_fb,alamat,kota,provinsi,kode_pos,no_telp1,no_telp2,url_fb,email) "
-                +  "VALUES (?,?,?,?,?,?,?,?,?,?,?)"; 
-           
-            pst = con.prepareStatement(insert);
-            pst.setString(1, cust_kode.getText().toUpperCase());
-            pst.setString(2, crypt.encrypt(cust_nama.getText()));
-            pst.setString(3, crypt.encrypt(cust_namafb.getText()));
-            pst.setString(4, crypt.encrypt(cust_alamat.getText()));
-            pst.setString(5, crypt.encrypt(cust_kota.getText()));
-            pst.setString(6, crypt.encrypt(cust_provinsi.getText()));
-            pst.setString(7, crypt.encrypt(cust_kodepos.getText()));
-            pst.setString(8, crypt.encrypt(cust_telp1.getText()));
-            pst.setString(9, crypt.encrypt(cust_telp2.getText()));
-            pst.setString(10, crypt.encrypt(cust_urlfb.getText()));
-            pst.setString(11, crypt.encrypt(cust_email.getText()));
-            
+            try {
+                String insert = "INSERT INTO customer(kode,nama,nama_fb,alamat,kota,provinsi,kode_pos,no_telp1,no_telp2,url_fb,email) "
+                    +  "VALUES (?,?,?,?,?,?,?,?,?,?,?)"; 
 
-            int success = pst.executeUpdate();
-            if (success == 1) {
+                pst = con.prepareStatement(insert);
+                pst.setString(1, cust_kode.getText().toUpperCase());
+                pst.setString(2, crypt.encrypt(cust_nama.getText()));
+                pst.setString(3, crypt.encrypt(cust_namafb.getText()));
+                pst.setString(4, crypt.encrypt(cust_alamat.getText()));
+                pst.setString(5, crypt.encrypt(cust_kota.getText()));
+                pst.setString(6, crypt.encrypt(cust_provinsi.getText()));
+                pst.setString(7, crypt.encrypt(cust_kodepos.getText()));
+                pst.setString(8, crypt.encrypt(cust_telp1.getText()));
+                pst.setString(9, crypt.encrypt(cust_telp2.getText()));
+                pst.setString(10, crypt.encrypt(cust_urlfb.getText()));
+                pst.setString(11, crypt.encrypt(cust_email.getText()));
+
+
+                int success = pst.executeUpdate();
+                if (success == 1) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Tambah data");
+                    alert.setHeaderText("Sukses menambah customer");
+                    alert.show();
+                    buildData();
+                    clearFields();
+                }
+            } catch (NullPointerException np){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Tambah data");
-                alert.setHeaderText("Sukses menambah customer");
+                alert.setHeaderText("Semua field harus diisi dahulu");
                 alert.show();
-                buildData();
-                clearFields();
             }
-        } else if (mode == 2) {
+        } else {
+            clearFields();
+        }
+        
+    }
+    @FXML protected void but_cancelclick(){
+       MDIWindow myMDI = Utility.getMDIWindow(paneCustomer);
+       myMDI.closeMdiWindow(); 
+    }
+    @FXML protected void but_updateclick() throws SQLException{
+       if (mode == 2) {
             String updat = "UPDATE  customer set nama = ?, nama_fb = ?, alamat = ?, "+
                            " kota = ?, provinsi = ?, kode_pos = ?, no_telp1 = ?, no_telp2 = ?, url_fb = ?, email = ? " + 
                            " WHERE kode = ?";
            
             pst = con.prepareStatement(updat);
-            pst.setString(1, crypt.encrypt(cust_nama.getText()));
-            pst.setString(2, crypt.encrypt(cust_namafb.getText()));
-            pst.setString(3, crypt.encrypt(cust_alamat.getText()));
-            pst.setString(4, crypt.encrypt(cust_kota.getText()));
-            pst.setString(5, crypt.encrypt(cust_provinsi.getText()));
-            pst.setString(6, crypt.encrypt(cust_kodepos.getText()));
-            pst.setString(7, crypt.encrypt(cust_telp1.getText()));
-            pst.setString(8, crypt.encrypt(cust_telp2.getText()));
-            pst.setString(9, crypt.encrypt(cust_urlfb.getText()));
-            pst.setString(10, crypt.encrypt(cust_email.getText()));   
-            pst.setString(11, cust_kode.getText().toUpperCase());
-            
+            BooleanProperty isOn = btn_switch.selectedProperty();
+            if (isOn.get()==true){
+                pst.setString(1, crypt.encrypt(cust_nama.getText()));
+                pst.setString(2, crypt.encrypt(cust_namafb.getText()));
+                pst.setString(3, crypt.encrypt(cust_alamat.getText()));
+                pst.setString(4, crypt.encrypt(cust_kota.getText()));
+                pst.setString(5, crypt.encrypt(cust_provinsi.getText()));
+                pst.setString(6, crypt.encrypt(cust_kodepos.getText()));
+                pst.setString(7, crypt.encrypt(cust_telp1.getText()));
+                pst.setString(8, crypt.encrypt(cust_telp2.getText()));
+                pst.setString(9, crypt.encrypt(cust_urlfb.getText()));
+                pst.setString(10, crypt.encrypt(cust_email.getText()));   
+                pst.setString(11, cust_kode.getText().toUpperCase());
+            } else {
+                pst.setString(1, cust_nama.getText());
+                pst.setString(2, cust_namafb.getText());
+                pst.setString(3, cust_alamat.getText());
+                pst.setString(4, cust_kota.getText());
+                pst.setString(5, cust_provinsi.getText());
+                pst.setString(6, cust_kodepos.getText());
+                pst.setString(7, cust_telp1.getText());
+                pst.setString(8, cust_telp2.getText());
+                pst.setString(9, cust_urlfb.getText());
+                pst.setString(10, cust_email.getText());   
+                pst.setString(11, cust_kode.getText().toUpperCase());
+            }
+
             int success = pst.executeUpdate();
             if (success == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -225,17 +257,10 @@ public class MasterCustomerController implements Initializable {
                 alert.show();
                 buildData();
                 clearFields();
-            }
-        }
-        
+            } 
+       }
     }
-    @FXML protected void but_cancelclick(){
-       MDIWindow myMDI = Utility.getMDIWindow(paneCustomer);
-       myMDI.closeMdiWindow(); 
-    }
-    @FXML protected void but_newclick(){
-        
-    }
+    
     @FXML protected void but_deleteclick(){
         Customer selectedData = cust_table.getSelectionModel().getSelectedItem();
         if (selectedData!=null){

@@ -48,7 +48,7 @@ public class MasterAdminController implements Initializable {
     @FXML private JFXButton adm_savebut;
     @FXML private JFXButton adm_closebut;
     @FXML private JFXButton adm_deletebut;
-    @FXML private JFXButton adm_newbut;
+    @FXML private JFXButton adm_updatebut;
     @FXML private TextField adm_kode;
     @FXML private TextField adm_nama;
     @FXML private TextArea adm_alamat;
@@ -81,13 +81,13 @@ public class MasterAdminController implements Initializable {
         
         
         assert adm_tableview != null : "fx:id=\"adm_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";
-        colKode.setCellValueFactory(new PropertyValueFactory<Admin, String>("kode"));
-        colNama.setCellValueFactory(new PropertyValueFactory<Admin, String>("nama"));
-        colAlamat.setCellValueFactory(new PropertyValueFactory<Admin, String>("alamat"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<Admin, String>("email"));
-        colTelepon.setCellValueFactory(new PropertyValueFactory<Admin, String>("telp"));
-        colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("username"));
-        colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("password"));
+        colKode.setCellValueFactory(new PropertyValueFactory<Admin, String>("Kode"));
+        colNama.setCellValueFactory(new PropertyValueFactory<Admin, String>("Nama"));
+        colAlamat.setCellValueFactory(new PropertyValueFactory<Admin, String>("Alamat"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<Admin, String>("Email"));
+        colTelepon.setCellValueFactory(new PropertyValueFactory<Admin, String>("Telp"));
+        colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("Username"));
+        colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("Password"));
         
         
         objDBHandler = new DbHandler();
@@ -237,49 +237,34 @@ public class MasterAdminController implements Initializable {
         }
     }
     
-    @FXML protected void adm_newbutclick(){
-        //System.out.println("New button Click"); 
-        clearFields();
-    }
-    
-    @FXML protected void adm_savebutclick(ActionEvent event) throws SQLException {
-        if (mode == 1){ //new record
-           String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status) "
-                +  "VALUES (?,?,?,?,?,?,?,?)"; 
-           
-            pst = con.prepareStatement(insert);
-            pst.setString(1, adm_kode.getText().toUpperCase());
-            pst.setString(2, crypt.encrypt(adm_nama.getText()));
-            pst.setString(3, crypt.encrypt(adm_alamat.getText()));
-            pst.setString(4, crypt.encrypt(adm_email.getText()));
-            pst.setString(5, crypt.encrypt(adm_telepon.getText()));
-            pst.setString(6, crypt.encrypt(adm_username.getText().toLowerCase()));
-            pst.setString(7, crypt.encrypt(adm_password.getText()));
-            pst.setString(8, "Aktif");
-
-            int success = pst.executeUpdate();
-            if (success == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Tambah data");
-                alert.setHeaderText("Sukses menambah data");
-                alert.show();
-                buildData();
-                clearFields();
-            }
-        } else if (mode == 2) {
+    @FXML protected void adm_updatebutclick() throws SQLException{
+        if (mode == 2){
+            BooleanProperty isOn = btnSwitch.selectedProperty();
             String updat = "UPDATE  admin set nama = ?, alamat = ?, email = ?, telp = ?, username = ?, password = ?, status = ?" + 
-                           " WHERE kode = ?";
-           
+                               " WHERE kode = ?";
+
             pst = con.prepareStatement(updat);
-            pst.setString(1, crypt.encrypt(adm_nama.getText()));
-            pst.setString(2, crypt.encrypt(adm_alamat.getText()));
-            pst.setString(3, crypt.encrypt(adm_email.getText()));
-            pst.setString(4, crypt.encrypt(adm_telepon.getText()));
-            pst.setString(5, crypt.encrypt(adm_username.getText().toLowerCase()));
-            pst.setString(6, crypt.encrypt(adm_password.getText()));
-            pst.setString(7, "Aktif");
-            pst.setString(8, adm_kode.getText());    
             
+            if (isOn.get()==true){
+                pst.setString(1, crypt.encrypt(adm_nama.getText()));
+                pst.setString(2, crypt.encrypt(adm_alamat.getText()));
+                pst.setString(3, crypt.encrypt(adm_email.getText()));
+                pst.setString(4, crypt.encrypt(adm_telepon.getText()));
+                pst.setString(5, crypt.encrypt(adm_username.getText().toLowerCase()));
+                pst.setString(6, crypt.encrypt(adm_password.getText()));
+                pst.setString(7, "Aktif");
+                pst.setString(8, adm_kode.getText());
+            } else {
+                pst.setString(1, adm_nama.getText());
+                pst.setString(2, adm_alamat.getText());
+                pst.setString(3, adm_email.getText());
+                pst.setString(4, adm_telepon.getText());
+                pst.setString(5, adm_username.getText().toLowerCase());
+                pst.setString(6, adm_password.getText());
+                pst.setString(7, "Aktif");
+                pst.setString(8, adm_kode.getText());
+            }
+
             int success = pst.executeUpdate();
             if (success == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -289,6 +274,42 @@ public class MasterAdminController implements Initializable {
                 buildData();
                 clearFields();
             }
+        }
+    }
+    
+    @FXML protected void adm_savebutclick(ActionEvent event) throws SQLException {
+        if (mode == 1){ //new record
+           try{
+                String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status) "
+                     +  "VALUES (?,?,?,?,?,?,?,?)"; 
+
+                 pst = con.prepareStatement(insert);
+                 pst.setString(1, adm_kode.getText().toUpperCase());
+                 pst.setString(2, crypt.encrypt(adm_nama.getText()));
+                 pst.setString(3, crypt.encrypt(adm_alamat.getText()));
+                 pst.setString(4, crypt.encrypt(adm_email.getText()));
+                 pst.setString(5, crypt.encrypt(adm_telepon.getText()));
+                 pst.setString(6, crypt.encrypt(adm_username.getText().toLowerCase()));
+                 pst.setString(7, crypt.encrypt(adm_password.getText()));
+                 pst.setString(8, "Aktif");
+
+                 int success = pst.executeUpdate();
+                 if (success == 1) {
+                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("Tambah data");
+                     alert.setHeaderText("Sukses menambah data");
+                     alert.show();
+                     buildData();
+                     clearFields();
+                 }
+           } catch (NullPointerException np){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tambah data");
+                alert.setHeaderText("Semua field harus diisi dahulu");
+                alert.show();
+           }
+        } else {
+            clearFields();
         }
     }
 

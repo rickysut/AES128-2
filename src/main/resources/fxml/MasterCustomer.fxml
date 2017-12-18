@@ -87,10 +87,10 @@
       <TextField fx:id="cust_email" layoutX="487.0" layoutY="263.0" promptText="Email" AnchorPane.rightAnchor="34.0" />
       <Group layoutX="-3.0" AnchorPane.leftAnchor="33.0">
          <children>
-            <JFXButton fx:id="but_new" layoutX="233.0" layoutY="317.0" onAction="#but_newclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFF00;" text="BARU" textAlignment="CENTER" />
+            <JFXButton fx:id="but_update" layoutX="233.0" layoutY="317.0" onAction="#but_updateclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" />
             <JFXButton fx:id="but_cancel" cancelButton="true" layoutX="135.0" layoutY="317.0" onAction="#but_cancelclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
             <JFXButton fx:id="but_delete" layoutX="327.0" layoutY="317.0" onAction="#but_deleteclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" />
-            <JFXButton fx:id="but_ok" defaultButton="true" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="but_ok" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Group>
       <JFXToggleButton fx:id="btn_switch" layoutX="468.0" layoutY="306.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" AnchorPane.leftAnchor="468.0" />

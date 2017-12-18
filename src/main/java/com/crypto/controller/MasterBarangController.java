@@ -47,7 +47,7 @@ public class MasterBarangController implements Initializable {
     @FXML private JFXButton brg_closebut;
     @FXML private JFXButton brg_savebut;
     @FXML private JFXButton brg_deletebut;
-    @FXML private JFXButton brg_newbut;
+    @FXML private JFXButton brg_updatebut;
     @FXML private TextField brg_kode;
     @FXML private TextField brg_nama;
     @FXML private TextMoney brg_harga;
@@ -73,9 +73,9 @@ public class MasterBarangController implements Initializable {
         crypt = new AES128();
         assert brg_tableview != null : "fx:id=\"brg_tableview\" was not injected: check your FXML file 'MasterBarang.fxml'.";
         
-        col_brgnama.setCellValueFactory(new PropertyValueFactory<Barang, String>("nama"));
-        col_brgharga.setCellValueFactory(new PropertyValueFactory<Barang, String>("harga"));
-        col_brgkode.setCellValueFactory(new PropertyValueFactory<Barang, String>("kode"));
+        col_brgnama.setCellValueFactory(new PropertyValueFactory<Barang, String>("Nama"));
+        col_brgharga.setCellValueFactory(new PropertyValueFactory<Barang, String>("Harga"));
+        col_brgkode.setCellValueFactory(new PropertyValueFactory<Barang, String>("Kode"));
             
         
         objDBHandler = new DbHandler();
@@ -87,9 +87,36 @@ public class MasterBarangController implements Initializable {
         clearFields();
     } 
     
-    @FXML protected void brg_newbutclick(){
-        
-        clearFields();
+    @FXML protected void brg_updatebutclick() throws SQLException{
+        if (mode == 2) {
+            BooleanProperty isOn = btnSwitch.selectedProperty();
+            String updat = "UPDATE  barang set nama = ?, harga = ?, status = ?" + 
+                           " WHERE kode = ?";
+           
+            pst = con.prepareStatement(updat);
+            if (isOn.get()==true){
+                pst.setString(1, crypt.encrypt(brg_nama.getText()));
+                pst.setString(2, crypt.encrypt(brg_harga.getText()));
+                pst.setString(3, "Aktif");
+                pst.setString(4, brg_kode.getText());
+            } else {
+                pst.setString(1, brg_nama.getText());
+                pst.setString(2, brg_harga.getText());
+                pst.setString(3, "Aktif");
+                pst.setString(4, brg_kode.getText());
+            }
+                
+            
+            int success = pst.executeUpdate();
+            if (success == 1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Simpan data");
+                alert.setHeaderText("Sukses menyimpan barang");
+                alert.show();
+                buildData();
+                clearFields();
+            }
+        }
     }
     
     @FXML protected void brg_closebutclick(){
@@ -140,43 +167,33 @@ public class MasterBarangController implements Initializable {
     
     @FXML protected void brg_saveclick(ActionEvent event) throws SQLException {
         if (mode == 1){ //new record
-           String insert = "INSERT INTO barang(kode,nama,harga,status) "
-                +  "VALUES (?,?,?,?)"; 
-           
-            pst = con.prepareStatement(insert);
-            pst.setString(1, brg_kode.getText().toUpperCase());
-            pst.setString(2, crypt.encrypt(brg_nama.getText()));
-            pst.setString(3, crypt.encrypt(brg_harga.getText()));
-            pst.setString(4, "Aktif");
+            try{
+                String insert = "INSERT INTO barang(kode,nama,harga,status) "
+                    +  "VALUES (?,?,?,?)"; 
 
-            int success = pst.executeUpdate();
-            if (success == 1) {
+                pst = con.prepareStatement(insert);
+                pst.setString(1, brg_kode.getText().toUpperCase());
+                pst.setString(2, crypt.encrypt(brg_nama.getText()));
+                pst.setString(3, crypt.encrypt(brg_harga.getText()));
+                pst.setString(4, "Aktif");
+
+                int success = pst.executeUpdate();
+                if (success == 1) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Tambah data");
+                    alert.setHeaderText("Sukses menambah barang");
+                    alert.show();
+                    buildData();
+                    clearFields();
+                }
+            } catch (NullPointerException np){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Tambah data");
-                alert.setHeaderText("Sukses menambah barang");
+                alert.setHeaderText("Semua field harus diisi dahulu");
                 alert.show();
-                buildData();
-                clearFields();
             }
-        } else if (mode == 2) {
-            String updat = "UPDATE  barang set nama = ?, harga = ?, status = ?" + 
-                           " WHERE kode = ?";
-           
-            pst = con.prepareStatement(updat);
-            pst.setString(1, crypt.encrypt(brg_nama.getText()));
-            pst.setString(2, crypt.encrypt(brg_harga.getText()));
-            pst.setString(3, "Aktif");
-            pst.setString(4, brg_kode.getText());    
-            
-            int success = pst.executeUpdate();
-            if (success == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Simpan data");
-                alert.setHeaderText("Sukses menyimpan barang");
-                alert.show();
-                buildData();
-                clearFields();
-            }
+        } else {
+            clearFields();
         }
         
     }

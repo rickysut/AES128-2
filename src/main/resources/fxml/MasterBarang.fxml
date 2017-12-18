@@ -51,10 +51,10 @@
      </TextMoney>
       <Group layoutX="39.0" layoutY="-217.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="178.0">
          <children>
-            <JFXButton fx:id="brg_newbut" alignment="CENTER" layoutX="211.0" layoutY="408.0" onAction="#brg_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="BARU" />
+            <JFXButton fx:id="brg_updatebut" alignment="CENTER" layoutX="211.0" layoutY="408.0" onAction="#brg_updatebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" />
             <JFXButton fx:id="brg_closebut" alignment="CENTER" cancelButton="true" layoutX="99.0" layoutY="408.0" onAction="#brg_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="BATAL" />
             <JFXButton fx:id="brg_deletebut" alignment="CENTER" layoutX="323.0" layoutY="408.0" onAction="#brg_deleteclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="HAPUS" />
-            <JFXButton fx:id="brg_savebut" defaultButton="true" layoutX="-12.0" layoutY="408.0" onAction="#brg_saveclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="-408.0" AnchorPane.rightAnchor="367.0" />
+            <JFXButton fx:id="brg_savebut" layoutX="-12.0" layoutY="408.0" onAction="#brg_saveclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="-408.0" AnchorPane.rightAnchor="367.0" />
          </children>
       </Group>
       <JFXToggleButton fx:id="btnSwitch" layoutX="496.0" layoutY="182.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="116.0" text="Decrypt" textFill="WHITE" toggleColor="#06ff82" AnchorPane.bottomAnchor="199.0" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="28.0" />

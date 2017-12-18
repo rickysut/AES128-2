@@ -84,7 +84,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <JFXButton fx:id="adm_savebut" alignment="CENTER" defaultButton="true" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
+      <JFXButton fx:id="adm_savebut" alignment="CENTER" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
          <effect>
             <Shadow />
          </effect>
@@ -94,7 +94,7 @@
             <Shadow />
          </effect>
       </JFXButton>
-      <JFXButton fx:id="adm_newbut" alignment="CENTER" layoutX="251.0" layoutY="331.0" onAction="#adm_newbutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFF00;" text="BARU" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
+      <JFXButton fx:id="adm_updatebut" alignment="CENTER" layoutX="251.0" layoutY="331.0" onAction="#adm_updatebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
          <effect>
             <Shadow />
          </effect>
