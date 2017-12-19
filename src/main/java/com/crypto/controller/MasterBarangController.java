@@ -5,8 +5,6 @@
  */
 package com.crypto.controller;
 
-import br.com.supremeforever.mdi.MDIWindow;
-import br.com.supremeforever.mdi.Utility;
 import com.crypto.AES128;
 import com.crypto.TextMoney;
 
@@ -120,8 +118,9 @@ public class MasterBarangController implements Initializable {
     }
     
     @FXML protected void brg_closebutclick(){
-        MDIWindow myMDI = Utility.getMDIWindow(paneBarang);
-        myMDI.closeMdiWindow();
+        //MDIWindow myMDI = Utility.getMDIWindow(paneBarang);
+        //myMDI.closeMdiWindow();
+        clearFields();
     }
     
     @FXML protected void btnSwitchClick(){

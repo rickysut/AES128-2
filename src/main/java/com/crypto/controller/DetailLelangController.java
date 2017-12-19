@@ -5,10 +5,7 @@
  */
 package com.crypto.controller;
 
-import br.com.supremeforever.mdi.MDIWindow;
-import br.com.supremeforever.mdi.Utility;
 import com.crypto.AES128;
-import com.crypto.model.Barang;
 import com.crypto.model.Lelang;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
@@ -28,19 +25,23 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 
 /**
  */
-public class SetupLelangController implements Initializable {
+public class DetailLelangController implements Initializable {
     @FXML private AnchorPane paneLelang; 
     @FXML private TableView<Lelang> lelang_table;
     @FXML private TableColumn<Lelang, String> col_kodelelang;
@@ -54,6 +55,11 @@ public class SetupLelangController implements Initializable {
     @FXML private TextField kodeCustomer;
     @FXML private DatePicker tglLelang;
     @FXML private JFXToggleButton btn_switch;
+    @FXML private Button but_searchcust;
+    @FXML private Button but_searchlelang;
+    @FXML private Button but_searchbarang;
+    @FXML private TreeView tvList;
+    
     
     AES128 crypt;
     
@@ -74,7 +80,11 @@ public class SetupLelangController implements Initializable {
         col_kodelelang.setCellValueFactory(new PropertyValueFactory<Lelang, String>("KodeLelang"));
         col_kodecustomer.setCellValueFactory(new PropertyValueFactory<Lelang, String>("KodeCustomer"));
         col_tgllelang.setCellValueFactory(new PropertyValueFactory<Lelang, String>("TglLelang"));
-            
+         
+        Image imageSearch = new Image(getClass().getResourceAsStream("/assets/search.png"));
+        but_searchcust.setGraphic(new ImageView(imageSearch));
+        but_searchlelang.setGraphic(new ImageView(imageSearch));
+        but_searchbarang.setGraphic(new ImageView(imageSearch));
         
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
@@ -201,8 +211,7 @@ public class SetupLelangController implements Initializable {
         } 
     }
     @FXML protected void butBatalClick(){
-        MDIWindow myMDI = Utility.getMDIWindow(paneLelang);
-        myMDI.closeMdiWindow(); 
+        clearFields(); 
     }
     
     @FXML protected void butUpdateClick() throws SQLException{
@@ -329,9 +338,19 @@ public class SetupLelangController implements Initializable {
         return localDate;
     }
     
-    @FXML protected void butSearchClick(){
+    @FXML protected void butSearchLelangClick(){
         
     }
+    
+    @FXML protected void butSearchCustClick(){
+        
+    }
+    
+    @FXML protected void butSearchBarangClick(){
+        
+    }
+    
+    
 }
     
     

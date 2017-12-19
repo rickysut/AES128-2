@@ -212,9 +212,11 @@ public class MasterCustomerController implements Initializable {
         
     }
     @FXML protected void but_cancelclick(){
-       MDIWindow myMDI = Utility.getMDIWindow(paneCustomer);
-       myMDI.closeMdiWindow(); 
+       //MDIWindow myMDI = Utility.getMDIWindow(paneCustomer);
+       //myMDI.closeMdiWindow(); 
+       clearFields();
     }
+    
     @FXML protected void but_updateclick() throws SQLException{
        if (mode == 2) {
             String updat = "UPDATE  customer set nama = ?, nama_fb = ?, alamat = ?, "+

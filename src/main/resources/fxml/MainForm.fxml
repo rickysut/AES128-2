@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.input.*?>
 <?import java.lang.*?>
@@ -21,7 +22,6 @@
               <MenuItem fx:id="adminMenu" mnemonicParsing="false" onAction="#onAdminMenuAction" text="Admin Management" />
                   <MenuItem fx:id="admBarang" mnemonicParsing="false" onAction="#admBarangClick" text="Master Barang" />
                   <MenuItem fx:id="admCustomer" mnemonicParsing="false" onAction="#admCustClick" text="Customer" />
-                  <MenuItem fx:id="admLelang" mnemonicParsing="false" onAction="#admLelangClick" text="Setup Lelang" />
               <MenuItem fx:id="admClose" mnemonicParsing="false" onAction="#onMenuClose" text="Close">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="ANY" meta="UP" shift="UP" shortcut="UP" />
@@ -31,7 +31,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Transaksi">
                <items>
-                  <MenuItem fx:id="admDetailBid" mnemonicParsing="false" onAction="#admDetailBidClick" text="Bid Detail" />
+                  <MenuItem fx:id="admLelang" mnemonicParsing="false" onAction="#admLelangClick" text="Detail Lelang" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Tentang">
                <items>
@@ -39,7 +39,7 @@
                </items></Menu>
         </menus>
       </MenuBar>
-      <MenuBar layoutX="514.0" layoutY="2.0" prefHeight="26.0" prefWidth="125.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutX="514.0" layoutY="2.0" prefHeight="26.0" prefWidth="89.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu fx:id="admUserid" mnemonicParsing="false" text="User">
                <items>

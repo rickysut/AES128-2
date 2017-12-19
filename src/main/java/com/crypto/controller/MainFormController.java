@@ -10,10 +10,16 @@ import br.com.supremeforever.mdi.MDIWindow;
 import com.crypto.LoginClass;
 import com.crypto.Prefs;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -23,9 +29,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -48,9 +56,15 @@ public class MainFormController implements Initializable {
     Prefs pref = new Prefs();
     
     int count = 0;
+      
+     
+    
+    
     /**
      * Initializes the controller class.
      */
+    
+    
     
     
     @Override
@@ -63,6 +77,8 @@ public class MainFormController implements Initializable {
         AnchorPane.setRightAnchor(mdiCanvas, 0d);
         mainPane.getChildren().add(mdiCanvas);
         admUserid.setText(pref.getPrefs("loged_user"));
+        
+        
         
     }    
     
@@ -148,7 +164,7 @@ public class MainFormController implements Initializable {
         
         MDIWindow mdiWindow = new MDIWindow("AdminWindow",
             new ImageView("/assets/admin.png"),
-            "Admin Management",
+            "INPUT DATA",
             content);
         //Set MDI Size
         mdiWindow.setMinSize(690, 630);
@@ -173,7 +189,7 @@ public class MainFormController implements Initializable {
         
         MDIWindow mdiWindow = new MDIWindow("AdminBarang",
             new ImageView("/assets/box.png"),
-            "Master Barang",
+            "INPUT DATA",
             content);
         //Set MDI Size
         mdiWindow.setMinSize(650, 500);
@@ -196,7 +212,7 @@ public class MainFormController implements Initializable {
         
         MDIWindow mdiWindow = new MDIWindow("Customer",
             new ImageView("/assets/customer.png"),
-            "Customer",
+            "INPUT DATA",
             content);
         //Set MDI Size
         mdiWindow.setMinSize(680, 553);
@@ -208,8 +224,7 @@ public class MainFormController implements Initializable {
      @FXML protected void admLelangClick(){
         Node content = null;
         try {
-            //FXMLLoader.load(getClass().getResource("/fxml/LoginForm.fxml"));
-            content = FXMLLoader.load(getClass().getResource("/fxml/SetupLelang.fxml"));
+            content = FXMLLoader.load(getClass().getResource("/fxml/DetailLelang.fxml"));
         } 
             catch (Exception e) {
         }
@@ -219,17 +234,15 @@ public class MainFormController implements Initializable {
         
         MDIWindow mdiWindow = new MDIWindow("Lelang",
             new ImageView("/assets/auction.png"),
-            "Lelang",
+            "TRANSAKSI",
             content);
         //Set MDI Size
-        mdiWindow.setMinSize(480, 375);
+        mdiWindow.setMinSize(630, 575);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow); 
      }
      
-     @FXML protected void admDetailBidClick(){
-         
-     }
+     
     
 }

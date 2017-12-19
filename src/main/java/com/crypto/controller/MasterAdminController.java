@@ -17,8 +17,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -33,6 +36,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -64,6 +69,9 @@ public class MasterAdminController implements Initializable {
     @FXML private TableColumn<Admin, String> colAlamat;
     @FXML private TableColumn<Admin, String> colEmail;
     @FXML private TableColumn<Admin, String> colTelepon;
+    @FXML private Button but_search;
+    @FXML private TextField txtSearch;
+    
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -78,8 +86,6 @@ public class MasterAdminController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         crypt = new AES128();
-        
-        
         assert adm_tableview != null : "fx:id=\"adm_tableview\" was not injected: check your FXML file 'MasterAdmin.fxml'.";
         colKode.setCellValueFactory(new PropertyValueFactory<Admin, String>("Kode"));
         colNama.setCellValueFactory(new PropertyValueFactory<Admin, String>("Nama"));
@@ -88,12 +94,15 @@ public class MasterAdminController implements Initializable {
         colTelepon.setCellValueFactory(new PropertyValueFactory<Admin, String>("Telp"));
         colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("Username"));
         colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("Password"));
-        
+                
+        Image imageSearch = new Image(getClass().getResourceAsStream("/assets/search.png"));
+        but_search.setGraphic(new ImageView(imageSearch));
         
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
         buildData();
         clearFields();
+        //initFilter();
     }   
 
     public void buildData(){        
@@ -137,8 +146,9 @@ public class MasterAdminController implements Initializable {
     }
     
     @FXML protected void adm_closebutclick(){
-        MDIWindow myMDI = Utility.getMDIWindow(mainPane);
-        myMDI.closeMdiWindow();
+        //MDIWindow myMDI = Utility.getMDIWindow(mainPane);
+        //myMDI.closeMdiWindow();
+        clearFields();
     }
     
     @FXML protected void adm_tableviewclick(){
@@ -354,4 +364,36 @@ public class MasterAdminController implements Initializable {
         adm_tableviewclick();
         adm_tableview.requestFocus();
     }
+    
+    @FXML protected void butSearchClick(){
+        if(txtSearch.getText().isEmpty()) {
+            adm_tableview.setItems(dataAdmin);
+            return;
+        }
+        ObservableList<Admin> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Admin, ?>> cols = adm_tableview.getColumns();
+        for(int i=0; i<dataAdmin.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataAdmin.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataAdmin.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        adm_tableview.setItems(tableItems);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        butSearchClick();
+    }
+    
+    
+    
+
 }

@@ -7,11 +7,11 @@
 }
 
 .text-input{
-    -fx-prompt-text-fill: #FFFFFF; 
-    -fx-text-inner-color: yellow;
+    -fx-prompt-text-fill: #B2B2B2; 
+    -fx-text-inner-color: black;
 }
 .text-input:focused {
-    -fx-prompt-text-fill: #FFFFFF; 
-    -fx-text-inner-color: yellow;
+    -fx-prompt-text-fill: #B2B2B2; 
+    -fx-text-inner-color: black;
 }
 

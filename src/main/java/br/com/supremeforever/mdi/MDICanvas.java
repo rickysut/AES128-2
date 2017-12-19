@@ -15,14 +15,27 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+import javafx.util.Duration;
 
 
 public class MDICanvas extends VBox {
+    
+    final DateFormat format = DateFormat.getInstance();
 
     private class WidthChangeListener implements ChangeListener {
 
@@ -47,6 +60,7 @@ public class MDICanvas extends VBox {
     private MDICanvas mdiCanvas = this;
     private final int taskbarHeightWithoutScrool = 44;
     private final int taskbarHeightWithScrool = 54;
+    private final Label timer = new Label();
 
     /**
      * *********** CONSTRUICTOR *************
@@ -70,11 +84,24 @@ public class MDICanvas extends VBox {
         paneMDIContainer = new AnchorPane();
         paneMDIContainer.setId("MDIContainer");
         paneMDIContainer.getStyleClass().add("mdiCanvasContainer");
+        timer.setStyle("-fx-text-fill: white;");
+        //timer.setText("H:mm:dd dd/mm/yyyy");
+        // (B3) Anchor to the Top + Left + Right
+        AnchorPane.setBottomAnchor(timer, 10.0);
+        AnchorPane.setRightAnchor(timer, 10.0);
+        paneMDIContainer.getChildren().add(timer);
+        
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
+        
         tbWindows = new HBox();
+        
+        tbWindows.setAlignment(Pos.CENTER_RIGHT);
         tbWindows.setSpacing(3);
         tbWindows.setMaxHeight(taskbarHeightWithoutScrool);
         tbWindows.setMinHeight(taskbarHeightWithoutScrool);
         tbWindows.setAlignment(Pos.CENTER_LEFT);
+        
         setVgrow(paneMDIContainer, Priority.ALWAYS);
         taskBar = new ScrollPane(tbWindows);
         Platform.runLater(() -> {
@@ -108,6 +135,17 @@ public class MDICanvas extends VBox {
 
         addEventHandler(MDIEvent.EVENT_CLOSED, mdiCloseHandler);
         addEventHandler(MDIEvent.EVENT_MINIMIZED, mdiMinimizedHandler);
+        
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {  
+            @Override  
+            public void handle(ActionEvent event) {  
+                 final Calendar cal = Calendar.getInstance(); 
+                 Format formatter = new SimpleDateFormat("H:mm:ss dd/M/yyyy");
+                 timer.setText(formatter.format(cal.getTime()));  
+            }  
+        })); 
+        timeline.setCycleCount(Animation.INDEFINITE);  
+        timeline.play();
     }
 
     /**

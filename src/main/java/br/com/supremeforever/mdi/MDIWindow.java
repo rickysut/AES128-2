@@ -427,9 +427,14 @@ public class MDIWindow extends BorderPane {
 
             MDICanvas mdiCanvas = (MDICanvas) this.getParent().getParent();
             for (int i = 0; i < mdiCanvas.getPaneMDIContainer().getChildren().size(); i++) {
-                MDIWindow window = (MDIWindow) mdiCanvas.getPaneMDIContainer().getChildren().get(i);
-                if (window.getId().equals(borderPane.getId())) {
-                    mdiCanvas.getPaneMDIContainer().getChildren().remove(i);
+                try{
+                    MDIWindow window = (MDIWindow) mdiCanvas.getPaneMDIContainer().getChildren().get(i);
+                
+                    if (window.getId().equals(borderPane.getId())) {
+                        mdiCanvas.getPaneMDIContainer().getChildren().remove(i);
+                    }
+                } catch (Exception ex){
+                    
                 }
             }
             isClosed.setValue(true);

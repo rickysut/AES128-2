@@ -84,28 +84,43 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <JFXButton fx:id="adm_savebut" alignment="CENTER" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
-         <effect>
-            <Shadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="adm_closebut" alignment="CENTER" cancelButton="true" layoutX="140.0" layoutY="331.0" onAction="#adm_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" AnchorPane.leftAnchor="140.0">
-         <effect>
-            <Shadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="adm_updatebut" alignment="CENTER" layoutX="251.0" layoutY="331.0" onAction="#adm_updatebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
-         <effect>
-            <Shadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="adm_deletebut" alignment="CENTER" layoutX="361.0" layoutY="331.0" onAction="#adm_deletebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" AnchorPane.leftAnchor="361.0">
-         <effect>
-            <Shadow />
-         </effect>
-      </JFXButton>
+      <Group>
+         <children>
+            <JFXButton fx:id="adm_savebut" alignment="CENTER" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_updatebut" alignment="CENTER" layoutX="251.0" layoutY="331.0" onAction="#adm_updatebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_closebut" alignment="CENTER" cancelButton="true" layoutX="140.0" layoutY="331.0" onAction="#adm_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" AnchorPane.leftAnchor="140.0">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="adm_deletebut" alignment="CENTER" layoutX="361.0" layoutY="331.0" onAction="#adm_deletebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" AnchorPane.leftAnchor="361.0">
+               <effect>
+                  <Shadow />
+               </effect>
+            </JFXButton>
+         </children>
+      </Group>
       <JFXToggleButton fx:id="btnSwitch" layoutX="527.0" layoutY="322.0" onAction="#btnSwitchClick" text="Decrypt" textFill="#fffdfd" toggleColor="#0be432" AnchorPane.rightAnchor="49.0" />
-      <TableView fx:id="adm_tableview" layoutX="27.0" layoutY="390.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="192.0" prefWidth="634.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
+      <HBox layoutX="28.0" layoutY="390.0" prefHeight="25.0" prefWidth="632.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+            <Button fx:id="but_search" contentDisplay="GRAPHIC_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClick" prefHeight="20.0" prefWidth="20.0" />
+         </children>
+      </HBox>
+      <TableView fx:id="adm_tableview" layoutX="28.0" layoutY="427.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="153.0" prefWidth="632.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="427.0">
         <columns>
             <TableColumn fx:id="colKode" prefWidth="58.0" text="Kode" />
           <TableColumn fx:id="colNama" prefWidth="110.0" text="Nama Lengkap" />

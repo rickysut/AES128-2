@@ -16,11 +16,11 @@ import javafx.stage.Stage;
 import com.crypto.MainClass;
 import com.crypto.Prefs;
 import com.crypto.utility.DbHandler;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -28,8 +28,8 @@ import javafx.scene.control.Alert;
 public class LoginFormController implements Initializable {
 
     @FXML private javafx.scene.control.Button loginButton;
-    @FXML private JFXTextField txtUsername;
-    @FXML private JFXPasswordField txtPassword;
+    @FXML private TextField txtUsername;
+    @FXML private PasswordField txtPassword;
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -44,7 +44,7 @@ public class LoginFormController implements Initializable {
        crypt = new AES128();
        objDBHandler = new DbHandler();
        con = objDBHandler.getConnection();
-       
+       txtUsername.requestFocus();
     }    
     
    public void clearLogin(){
