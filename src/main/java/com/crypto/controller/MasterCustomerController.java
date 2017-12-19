@@ -9,6 +9,7 @@ package com.crypto.controller;
 import br.com.supremeforever.mdi.MDIWindow;
 import br.com.supremeforever.mdi.Utility;
 import com.crypto.AES128;
+import com.crypto.model.Admin;
 import com.crypto.model.Customer;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
@@ -26,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -71,6 +73,9 @@ public class MasterCustomerController implements Initializable {
     @FXML private TableColumn<Customer, String> col_telp2;
     @FXML private TableColumn<Customer, String> col_urlfb;
     @FXML private TableColumn<Customer, String> col_email;
+    @FXML private Button but_searchclear;
+    @FXML private TextField txtSearch;
+    
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -396,4 +401,33 @@ public class MasterCustomerController implements Initializable {
         return res;   
     }
     
+    @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       cust_table.setItems(dataCustomer);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        if(txtSearch.getText().isEmpty()) {
+            cust_table.setItems(dataCustomer);
+            return;
+        }
+        ObservableList<Customer> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Customer, ?>> cols = cust_table.getColumns();
+        for(int i=0; i<dataCustomer.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataCustomer.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataCustomer.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        cust_table.setItems(tableItems);
+    }
 }

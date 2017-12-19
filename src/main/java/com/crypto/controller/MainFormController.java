@@ -192,7 +192,7 @@ public class MainFormController implements Initializable {
             "INPUT DATA",
             content);
         //Set MDI Size
-        mdiWindow.setMinSize(650, 500);
+        mdiWindow.setMinSize(650, 520);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
@@ -215,7 +215,7 @@ public class MainFormController implements Initializable {
             "INPUT DATA",
             content);
         //Set MDI Size
-        mdiWindow.setMinSize(680, 553);
+        mdiWindow.setMinSize(680, 590);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow);
@@ -237,7 +237,7 @@ public class MainFormController implements Initializable {
             "TRANSAKSI",
             content);
         //Set MDI Size
-        mdiWindow.setMinSize(630, 575);
+        mdiWindow.setMinSize(635, 490);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow); 

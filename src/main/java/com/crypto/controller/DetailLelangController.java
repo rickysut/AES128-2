@@ -6,6 +6,7 @@
 package com.crypto.controller;
 
 import com.crypto.AES128;
+import com.crypto.model.Admin;
 import com.crypto.model.Lelang;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
@@ -59,6 +60,8 @@ public class DetailLelangController implements Initializable {
     @FXML private Button but_searchlelang;
     @FXML private Button but_searchbarang;
     @FXML private TreeView tvList;
+    @FXML private Button but_searchclear;
+    @FXML private TextField txtSearch;
     
     
     AES128 crypt;
@@ -350,6 +353,35 @@ public class DetailLelangController implements Initializable {
         
     }
     
+    @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       lelang_table.setItems(dataLelang);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        if(txtSearch.getText().isEmpty()) {
+            lelang_table.setItems(dataLelang);
+            return;
+        }
+        ObservableList<Lelang> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Lelang, ?>> cols = lelang_table.getColumns();
+        for(int i=0; i<dataLelang.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataLelang.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataLelang.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        lelang_table.setItems(tableItems);
+    }
     
 }
     

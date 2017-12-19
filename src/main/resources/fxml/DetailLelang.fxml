@@ -24,17 +24,17 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="32.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Pelanggan" AnchorPane.leftAnchor="32.0">
+      <Text fill="WHITE" layoutX="32.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Pelanggan" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="32.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Lelang" AnchorPane.leftAnchor="32.0">
+      <Text fill="WHITE" layoutX="32.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Lelang" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="32.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Lelang" AnchorPane.leftAnchor="32.0">
+      <Text fill="WHITE" layoutX="32.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Lelang" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,13 +58,13 @@
             <Button fx:id="but_searchbarang" contentDisplay="GRAPHIC_ONLY" layoutX="257.0" layoutY="51.0" mnemonicParsing="false" onAction="#butSearchBarangClick" prefHeight="25.0" prefWidth="20.0" textAlignment="CENTER" />
          </children>
       </HBox>
-      <Text fill="WHITE" layoutX="32.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Barang">
+      <Text fill="WHITE" layoutX="32.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Barang" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TreeView fx:id="tvList" layoutX="313.0" layoutY="54.0" prefHeight="130.0" prefWidth="279.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="54.0" />
-      <Group layoutY="31.0" AnchorPane.leftAnchor="32.0">
+      <TreeView fx:id="tvList" layoutX="313.0" layoutY="54.0" prefHeight="130.0" prefWidth="279.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="54.0" />
+      <Group layoutY="31.0" AnchorPane.leftAnchor="35.0">
          <children>
             <JFXButton fx:id="but_ok" layoutX="32.0" layoutY="174.0" onAction="#butOkClick" prefHeight="36.0" prefWidth="82.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
             <JFXButton fx:id="but_batal" layoutX="126.0" layoutY="174.0" onAction="#butBatalClick" prefHeight="36.0" prefWidth="82.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
@@ -73,12 +73,27 @@
          </children>
       </Group>
       <JFXToggleButton fx:id="btn_switch" layoutX="431.0" layoutY="194.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="122.0" text="Decrypt" textAlignment="CENTER" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="431.0" />
-      <TableView fx:id="lelang_table" layoutX="32.0" layoutY="261.0" onKeyPressed="#lelangTableKeyPressed" onKeyReleased="#lelangTableKeyReleased" onMouseClicked="#lelangTableClick" prefHeight="189.0" prefWidth="561.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="261.0">
-        <columns>
-          <TableColumn fx:id="col_kodelelang" prefWidth="147.0" text="Kode Lelang" />
-          <TableColumn fx:id="col_kodecustomer" prefWidth="142.0" text="Kode Customer" />
-            <TableColumn fx:id="col_tgllelang" prefWidth="107.0" text="Tanggal Lelang" />
-        </columns>
-      </TableView>
+      <VBox layoutX="32.0" layoutY="270.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="274.0">
+         <children>
+            <HBox layoutX="32.0" layoutY="270.0" prefHeight="25.0" prefWidth="561.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="lelang_table" layoutX="32.0" layoutY="295.0" onKeyPressed="#lelangTableKeyPressed" onKeyReleased="#lelangTableKeyReleased" onMouseClicked="#lelangTableClick" prefHeight="155.0" prefWidth="561.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="295.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="col_kodelelang" prefWidth="147.0" text="Kode Lelang" />
+                <TableColumn fx:id="col_kodecustomer" prefWidth="142.0" text="Kode Customer" />
+                  <TableColumn fx:id="col_tgllelang" prefWidth="107.0" text="Tanggal Lelang" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

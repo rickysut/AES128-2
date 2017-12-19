@@ -18,7 +18,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="28.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KODE" AnchorPane.leftAnchor="27.0">
+      <Text fill="WHITE" layoutX="28.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KODE" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -28,7 +28,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Text fill="WHITE" layoutX="28.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Lengkap" AnchorPane.leftAnchor="27.0">
+      <Text fill="WHITE" layoutX="28.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Lengkap" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Text fill="WHITE" layoutX="27.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.leftAnchor="27.0">
+      <Text fill="WHITE" layoutX="27.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Text fill="WHITE" layoutX="27.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.leftAnchor="27.0">
+      <Text fill="WHITE" layoutX="27.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Text fill="WHITE" layoutX="23.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alamat" AnchorPane.leftAnchor="27.0">
+      <Text fill="WHITE" layoutX="23.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alamat" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -69,7 +69,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="adm_email" layoutX="488.0" layoutY="66.0" prefHeight="30.0" prefWidth="174.0" promptText="email" AnchorPane.rightAnchor="27.0">
+      <TextField fx:id="adm_email" layoutX="488.0" layoutY="66.0" prefHeight="30.0" prefWidth="166.0" promptText="email" AnchorPane.rightAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -79,12 +79,12 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="adm_telepon" layoutX="488.0" layoutY="108.0" prefHeight="30.0" prefWidth="174.0" promptText="no telepon" AnchorPane.rightAnchor="27.0">
+      <TextField fx:id="adm_telepon" layoutX="488.0" layoutY="108.0" prefHeight="30.0" prefWidth="166.0" promptText="no telepon" AnchorPane.rightAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Group>
+      <Group AnchorPane.leftAnchor="35.0">
          <children>
             <JFXButton fx:id="adm_savebut" alignment="CENTER" layoutX="24.0" layoutY="331.0" onAction="#adm_savebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="#fffdfd" AnchorPane.leftAnchor="27.0">
                <effect>
@@ -109,27 +109,31 @@
          </children>
       </Group>
       <JFXToggleButton fx:id="btnSwitch" layoutX="527.0" layoutY="322.0" onAction="#btnSwitchClick" text="Decrypt" textFill="#fffdfd" toggleColor="#0be432" AnchorPane.rightAnchor="49.0" />
-      <HBox layoutX="28.0" layoutY="390.0" prefHeight="25.0" prefWidth="632.0">
+      <VBox layoutX="28.0" layoutY="390.0" prefHeight="187.0" prefWidth="632.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="392.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
-            <Button fx:id="but_search" contentDisplay="GRAPHIC_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClick" prefHeight="20.0" prefWidth="20.0" />
+            <HBox layoutX="28.0" layoutY="390.0" prefHeight="25.0" prefWidth="632.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="adm_tableview" layoutX="28.0" layoutY="427.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="153.0" prefWidth="632.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="427.0" VBox.vgrow="ALWAYS">
+              <columns>
+                  <TableColumn fx:id="colKode" prefWidth="58.0" text="Kode" />
+                <TableColumn fx:id="colNama" prefWidth="110.0" text="Nama Lengkap" />
+                <TableColumn fx:id="colUsername" prefWidth="82.0" text="Username" />
+                  <TableColumn fx:id="colPassword" prefWidth="86.0" text="Password" />
+                  <TableColumn fx:id="colAlamat" prefWidth="77.0" text="Alamat" />
+                  <TableColumn fx:id="colEmail" maxWidth="191.0" minWidth="0.0" prefWidth="95.0" text="Email" />
+                  <TableColumn fx:id="colTelepon" maxWidth="100.0" prefWidth="171.0" text="No Telepon" />
+              </columns>
+            </TableView>
          </children>
-      </HBox>
-      <TableView fx:id="adm_tableview" layoutX="28.0" layoutY="427.0" onKeyPressed="#adm_tableviewpressed" onKeyReleased="#adm_tableviewreleased" onMouseClicked="#adm_tableviewclick" prefHeight="153.0" prefWidth="632.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="427.0">
-        <columns>
-            <TableColumn fx:id="colKode" prefWidth="58.0" text="Kode" />
-          <TableColumn fx:id="colNama" prefWidth="110.0" text="Nama Lengkap" />
-          <TableColumn fx:id="colUsername" prefWidth="82.0" text="Username" />
-            <TableColumn fx:id="colPassword" prefWidth="86.0" text="Password" />
-            <TableColumn fx:id="colAlamat" prefWidth="77.0" text="Alamat" />
-            <TableColumn fx:id="colEmail" maxWidth="191.0" minWidth="0.0" prefWidth="95.0" text="Email" />
-            <TableColumn fx:id="colTelepon" maxWidth="100.0" prefWidth="171.0" text="No Telepon" />
-        </columns>
-      </TableView>
+      </VBox>
    </children>
 </AnchorPane>

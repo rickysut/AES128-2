@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author Asus-Ricky
+
  */
 public class TextMoney extends TextField{
     private int maxlength;

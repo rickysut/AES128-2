@@ -211,11 +211,13 @@ public class MDICanvas extends VBox {
             tbWindows.getChildren().remove(getItemFromToolBar(mdiWindow.getId()));
         }
         for (int i = 0; i < paneMDIContainer.getChildren().size(); i++) {
-            Node node = paneMDIContainer.getChildren().get(i);
-            if (node.getId().equals(mdiWindow.getId())) {
-                node.toFront();
-                node.setVisible(true);
-            }
+            try {
+                Node node = paneMDIContainer.getChildren().get(i);
+                if (node.getId().equals(mdiWindow.getId())) {
+                    node.toFront();
+                    node.setVisible(true);
+                }
+            } catch (Exception ex){}
         }
     }
 

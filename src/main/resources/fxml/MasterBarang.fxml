@@ -49,7 +49,7 @@
             <Font size="14.0" />
          </font>
      </TextMoney>
-      <Group layoutX="39.0" layoutY="-217.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="178.0">
+      <Group layoutX="39.0" layoutY="-217.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="191.0">
          <children>
             <JFXButton fx:id="brg_updatebut" alignment="CENTER" layoutX="211.0" layoutY="408.0" onAction="#brg_updatebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" />
             <JFXButton fx:id="brg_closebut" alignment="CENTER" cancelButton="true" layoutX="99.0" layoutY="408.0" onAction="#brg_closebutclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white;" text="BATAL" />
@@ -57,13 +57,28 @@
             <JFXButton fx:id="brg_savebut" layoutX="-12.0" layoutY="408.0" onAction="#brg_saveclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="-408.0" AnchorPane.rightAnchor="367.0" />
          </children>
       </Group>
-      <JFXToggleButton fx:id="btnSwitch" layoutX="496.0" layoutY="182.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="116.0" text="Decrypt" textFill="WHITE" toggleColor="#06ff82" AnchorPane.bottomAnchor="199.0" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="28.0" />
-      <TableView fx:id="brg_tableview" layoutX="28.0" layoutY="266.0" onKeyPressed="#brg_tableviewpressed" onKeyReleased="#brg_tblviewreleased" onMouseClicked="#brg_tableviewclick" prefHeight="146.0" prefWidth="583.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="266.0">
-        <columns>
-          <TableColumn fx:id="col_brgkode" prefWidth="173.0" text="Kode" />
-          <TableColumn fx:id="col_brgnama" prefWidth="215.0" text="Nama Barang" />
-          <TableColumn fx:id="col_brgharga" prefWidth="163.0" text="Harga" />
-        </columns>
-      </TableView>
+      <JFXToggleButton fx:id="btnSwitch" layoutX="496.0" layoutY="182.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="116.0" text="Decrypt" textFill="WHITE" toggleColor="#06ff82" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="182.0" />
+      <VBox layoutX="28.0" layoutY="246.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="256.0">
+         <children>
+            <HBox layoutX="28.0" layoutY="240.0" prefHeight="25.0" prefWidth="561.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="brg_tableview" layoutX="28.0" layoutY="275.0" onKeyPressed="#brg_tableviewpressed" onKeyReleased="#brg_tblviewreleased" onMouseClicked="#brg_tableviewclick" prefHeight="137.0" prefWidth="584.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="275.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="col_brgkode" prefWidth="173.0" text="Kode" />
+                <TableColumn fx:id="col_brgnama" prefWidth="215.0" text="Nama Barang" />
+                <TableColumn fx:id="col_brgharga" prefWidth="163.0" text="Harga" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

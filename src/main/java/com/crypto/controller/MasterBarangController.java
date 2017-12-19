@@ -9,9 +9,14 @@ import com.crypto.AES128;
 import com.crypto.TextMoney;
 
 import com.crypto.model.Barang;
+import com.crypto.model.Customer;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import com.sun.javafx.beans.event.AbstractNotifyListener;
+import com.sun.javafx.binding.BidirectionalBinding;
+import com.sun.javafx.property.adapter.PropertyDescriptor;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +24,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,6 +61,8 @@ public class MasterBarangController implements Initializable {
     @FXML private TextField brg_nama;
     @FXML private TextMoney brg_harga;
     @FXML private JFXToggleButton btnSwitch;
+    @FXML private Button but_searchclear;
+    @FXML private TextField txtSearch;
     AES128 crypt;
     
     
@@ -83,6 +96,7 @@ public class MasterBarangController implements Initializable {
        
         buildData();
         clearFields();
+       
     } 
     
     @FXML protected void brg_updatebutclick() throws SQLException{
@@ -307,6 +321,36 @@ public class MasterBarangController implements Initializable {
        }
    }
    
+   
+   @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       brg_tableview.setItems(dataBarang);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        if(txtSearch.getText().isEmpty()) {
+            brg_tableview.setItems(dataBarang);
+            return;
+        }
+        ObservableList<Barang> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Barang, ?>> cols = brg_tableview.getColumns();
+        for(int i=0; i<dataBarang.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataBarang.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataBarang.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        brg_tableview.setItems(tableItems);
+    }
    
             
 }

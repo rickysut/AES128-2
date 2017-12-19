@@ -46,7 +46,7 @@ public class LoginClass extends Application{
         
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setAlwaysOnTop(true);
+        //primaryStage.setAlwaysOnTop(true);
             
         primaryStage.show();
         myControllerHandle.clearLogin();

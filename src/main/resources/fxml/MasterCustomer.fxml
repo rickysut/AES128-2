@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="paneCustomer" prefHeight="543.0" prefWidth="670.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterCustomerController">
+<AnchorPane id="AnchorPane" fx:id="paneCustomer" prefHeight="565.0" prefWidth="670.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.MasterCustomerController">
     <stylesheets>
         <URL value="@/styles/mastercustomer.css" />
     </stylesheets>
@@ -85,29 +85,44 @@
          </font>
       </Text>
       <TextField fx:id="cust_email" layoutX="487.0" layoutY="263.0" promptText="Email" AnchorPane.rightAnchor="34.0" />
-      <Group layoutX="-3.0" AnchorPane.leftAnchor="33.0">
+      <Group layoutX="-2.0" layoutY="-3.0" AnchorPane.leftAnchor="34.0">
          <children>
-            <JFXButton fx:id="but_update" layoutX="233.0" layoutY="317.0" onAction="#but_updateclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" />
-            <JFXButton fx:id="but_cancel" cancelButton="true" layoutX="135.0" layoutY="317.0" onAction="#but_cancelclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
-            <JFXButton fx:id="but_delete" layoutX="327.0" layoutY="317.0" onAction="#but_deleteclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" />
-            <JFXButton fx:id="but_ok" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="but_update" layoutX="265.0" layoutY="317.0" onAction="#but_updateclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="UPDATE" textAlignment="CENTER" />
+            <JFXButton fx:id="but_cancel" cancelButton="true" layoutX="151.0" layoutY="317.0" onAction="#but_cancelclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
+            <JFXButton fx:id="but_ok" layoutX="36.0" layoutY="317.0" onAction="#but_okclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="but_delete" layoutX="381.0" layoutY="317.0" onAction="#but_deleteclick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="HAPUS" textAlignment="CENTER" />
          </children>
       </Group>
-      <JFXToggleButton fx:id="btn_switch" layoutX="468.0" layoutY="306.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="cust_table" layoutX="35.0" layoutY="370.0" onKeyPressed="#cust_tablepressed" onKeyReleased="#cust_tablereleased" onMouseClicked="#cust_tableclick" prefHeight="151.0" prefWidth="599.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="370.0">
-        <columns>
-          <TableColumn fx:id="col_kode" maxWidth="100.0" prefWidth="40.0" text="Kode" />
-          <TableColumn fx:id="col_nama" prefWidth="40.0" text="Nama Lengkap" />
-            <TableColumn fx:id="col_namafb" prefWidth="60.0" text="Nama FB" />
-            <TableColumn fx:id="col_alamat" prefWidth="40.0" text="Alamat" />
-            <TableColumn fx:id="col_kota" prefWidth="31.0" text="Kota" />
-            <TableColumn fx:id="col_provinsi" prefWidth="50.0" text="Provinsi" />
-            <TableColumn fx:id="col_kodepos" prefWidth="54.0" text="Kode Pos" />
-            <TableColumn fx:id="col_telp1" prefWidth="75.0" text="No Telepon 1" />
-            <TableColumn fx:id="col_telp2" prefWidth="75.0" text="No Telepon 2" />
-            <TableColumn fx:id="col_urlfb" prefWidth="75.0" text="URL FB" />
-            <TableColumn fx:id="col_email" prefWidth="75.0" text="Email" />
-        </columns>
-      </TableView>
+      <JFXToggleButton fx:id="btn_switch" layoutX="522.0" layoutY="305.0" onAction="#btn_switchclick" text="Decrypt" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="522.0" />
+      <VBox layoutX="35.0" layoutY="371.0" prefHeight="173.0" prefWidth="599.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="371.0">
+         <children>
+            <HBox layoutX="35.0" layoutY="371.0" prefHeight="25.0" prefWidth="599.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="cust_table" layoutX="35.0" layoutY="396.0" onKeyPressed="#cust_tablepressed" onKeyReleased="#cust_tablereleased" onMouseClicked="#cust_tableclick" prefHeight="125.0" prefWidth="599.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="396.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="col_kode" maxWidth="100.0" prefWidth="40.0" text="Kode" />
+                <TableColumn fx:id="col_nama" prefWidth="40.0" text="Nama Lengkap" />
+                  <TableColumn fx:id="col_namafb" prefWidth="60.0" text="Nama FB" />
+                  <TableColumn fx:id="col_alamat" prefWidth="40.0" text="Alamat" />
+                  <TableColumn fx:id="col_kota" prefWidth="31.0" text="Kota" />
+                  <TableColumn fx:id="col_provinsi" prefWidth="50.0" text="Provinsi" />
+                  <TableColumn fx:id="col_kodepos" prefWidth="54.0" text="Kode Pos" />
+                  <TableColumn fx:id="col_telp1" prefWidth="75.0" text="No Telepon 1" />
+                  <TableColumn fx:id="col_telp2" prefWidth="55.0" text="No Telepon 2" />
+                  <TableColumn fx:id="col_urlfb" prefWidth="79.0" text="URL FB" />
+                  <TableColumn fx:id="col_email" prefWidth="70.0" text="Email" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

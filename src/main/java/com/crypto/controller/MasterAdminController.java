@@ -69,7 +69,7 @@ public class MasterAdminController implements Initializable {
     @FXML private TableColumn<Admin, String> colAlamat;
     @FXML private TableColumn<Admin, String> colEmail;
     @FXML private TableColumn<Admin, String> colTelepon;
-    @FXML private Button but_search;
+    @FXML private Button but_searchclear;
     @FXML private TextField txtSearch;
     
     AES128 crypt;
@@ -95,9 +95,6 @@ public class MasterAdminController implements Initializable {
         colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("Username"));
         colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("Password"));
                 
-        Image imageSearch = new Image(getClass().getResourceAsStream("/assets/search.png"));
-        but_search.setGraphic(new ImageView(imageSearch));
-        
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
         buildData();
@@ -365,7 +362,14 @@ public class MasterAdminController implements Initializable {
         adm_tableview.requestFocus();
     }
     
-    @FXML protected void butSearchClick(){
+    @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       adm_tableview.setItems(dataAdmin);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
         if(txtSearch.getText().isEmpty()) {
             adm_tableview.setItems(dataAdmin);
             return;
@@ -387,13 +391,6 @@ public class MasterAdminController implements Initializable {
         }
         adm_tableview.setItems(tableItems);
     }
-    
-    
-    @FXML protected void txtSearchReleased(){
-        butSearchClick();
-    }
-    
-    
     
 
 }
