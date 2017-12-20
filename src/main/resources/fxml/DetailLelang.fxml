@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="paneLelang" prefHeight="475.0" prefWidth="625.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.DetailLelangController">
+<AnchorPane id="AnchorPane" fx:id="paneLelang" prefHeight="477.0" prefWidth="635.0" style="-fx-background-color: #35739F;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.DetailLelangController">
     <stylesheets>
         <URL value="@/styles/adminform.css" />
     </stylesheets>
@@ -29,42 +29,36 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="32.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Lelang" AnchorPane.leftAnchor="35.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="32.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Lelang" AnchorPane.leftAnchor="35.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
       <HBox layoutX="163.0" layoutY="52.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.leftAnchor="163.0">
          <children>
             <TextField fx:id="kodeCustomer" layoutX="205.0" layoutY="85.0" prefHeight="25.0" prefWidth="94.0" promptText="Kode Pelanggan" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="106.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="but_searchcust" contentDisplay="GRAPHIC_ONLY" layoutX="353.0" layoutY="85.0" mnemonicParsing="false" onAction="#butSearchCustClick" prefHeight="25.0" prefWidth="20.0" AnchorPane.rightAnchor="80.0" />
          </children>
       </HBox>
-      <HBox layoutX="163.0" layoutY="86.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.leftAnchor="163.0">
-         <children>
-            <TextField fx:id="kodeLelang" layoutX="163.0" layoutY="51.0" prefHeight="25.0" prefWidth="94.0" promptText="Kode Lelang" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="368.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="but_searchlelang" contentDisplay="GRAPHIC_ONLY" layoutX="257.0" layoutY="51.0" mnemonicParsing="false" onAction="#butSearchLelangClick" prefHeight="25.0" prefWidth="20.0" textAlignment="CENTER" />
-         </children>
-      </HBox>
+      <Text fill="WHITE" layoutX="32.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Lelang" AnchorPane.leftAnchor="35.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="kodeLelang" layoutX="163.0" layoutY="86.0" prefHeight="25.0" prefWidth="122.0" promptText="Kode Lelang" AnchorPane.leftAnchor="163.0" />
+      <Text fill="WHITE" layoutX="32.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Lelang" AnchorPane.leftAnchor="35.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
       <DatePicker fx:id="tglLelang" layoutX="163.0" layoutY="120.0" prefHeight="25.0" prefWidth="122.0" promptText="Tanggal Lelang" AnchorPane.leftAnchor="163.0" />
-      <HBox layoutX="163.0" layoutY="155.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.rightAnchor="340.13671875">
-         <children>
-            <TextField fx:id="kodebarang" layoutX="163.0" layoutY="51.0" prefHeight="25.0" prefWidth="94.0" promptText="Kode Barang" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="368.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="but_searchbarang" contentDisplay="GRAPHIC_ONLY" layoutX="257.0" layoutY="51.0" mnemonicParsing="false" onAction="#butSearchBarangClick" prefHeight="25.0" prefWidth="20.0" textAlignment="CENTER" />
-         </children>
-      </HBox>
       <Text fill="WHITE" layoutX="32.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kode Barang" AnchorPane.leftAnchor="35.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TreeView fx:id="tvList" layoutX="313.0" layoutY="54.0" prefHeight="130.0" prefWidth="279.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="54.0" />
-      <Group layoutY="31.0" AnchorPane.leftAnchor="35.0">
+      <HBox layoutX="163.0" layoutY="155.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.leftAnchor="163.0">
+         <children>
+            <TextField fx:id="kodeBarang" layoutX="163.0" layoutY="51.0" prefHeight="25.0" prefWidth="94.0" promptText="Kode Barang" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="368.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="but_searchbarang" contentDisplay="GRAPHIC_ONLY" layoutX="257.0" layoutY="51.0" mnemonicParsing="false" onAction="#butSearchBarangClick" prefHeight="25.0" prefWidth="20.0" textAlignment="CENTER" />
+         </children>
+      </HBox>
+      <Group layoutY="31.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="205.0">
          <children>
             <JFXButton fx:id="but_ok" layoutX="32.0" layoutY="174.0" onAction="#butOkClick" prefHeight="36.0" prefWidth="82.0" style="-fx-background-color: #34A853;" text="OK" textAlignment="CENTER" textFill="WHITE" />
             <JFXButton fx:id="but_batal" layoutX="126.0" layoutY="174.0" onAction="#butBatalClick" prefHeight="36.0" prefWidth="82.0" style="-fx-background-color: #FFFFFF;" text="BATAL" textAlignment="CENTER" />
@@ -72,7 +66,33 @@
             <JFXButton fx:id="but_delete" layoutX="314.0" layoutY="174.0" onAction="#butDeleteClick" prefHeight="36.0" prefWidth="82.0" style="-fx-background-color: #FFFFFF;" text="DELETE" textAlignment="CENTER" />
          </children>
       </Group>
-      <JFXToggleButton fx:id="btn_switch" layoutX="431.0" layoutY="194.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="122.0" text="Decrypt" textAlignment="CENTER" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="431.0" />
+      <Button fx:id="but_add" layoutX="290.0" layoutY="99.0" mnemonicParsing="false" onAction="#but_addClick" prefHeight="36.0" prefWidth="37.0" text="&gt;&gt;" textAlignment="CENTER" />
+      <VBox layoutX="332.0" layoutY="53.0" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="53.0">
+         <children>
+            <TableView fx:id="viewTable" layoutX="332.0" layoutY="53.0" prefHeight="111.0" prefWidth="266.0" AnchorPane.bottomAnchor="311.0" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="53.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colViewKode" prefWidth="75.0" text="Kode" />
+                <TableColumn fx:id="colViewNama" minWidth="0.0" prefWidth="74.0" text="Nama" />
+                  <TableColumn fx:id="colViewHarga" prefWidth="114.0" text="Harga" />
+              </columns>
+            </TableView>
+            <HBox alignment="TOP_RIGHT" layoutX="332.0" layoutY="165.0" prefHeight="20.0" prefWidth="262.0" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="165.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="332.0" layoutY="165.0" prefHeight="20.0" prefWidth="318.0" style="-fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="TOTAL  :" textAlignment="RIGHT">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtTotal" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="510.0" layoutY="165.0" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="0  " textAlignment="RIGHT" AnchorPane.rightAnchor="35.0" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <JFXToggleButton fx:id="btn_switch" layoutX="431.0" layoutY="194.0" onAction="#btnSwitchClick" prefHeight="58.0" prefWidth="122.0" text="Decrypt" textAlignment="CENTER" textFill="WHITE" toggleColor="#0be432" AnchorPane.leftAnchor="431.0" AnchorPane.topAnchor="194.0" />
       <VBox layoutX="32.0" layoutY="270.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="274.0">
          <children>
             <HBox layoutX="32.0" layoutY="270.0" prefHeight="25.0" prefWidth="561.0">
@@ -88,9 +108,11 @@
             </HBox>
             <TableView fx:id="lelang_table" layoutX="32.0" layoutY="295.0" onKeyPressed="#lelangTableKeyPressed" onKeyReleased="#lelangTableKeyReleased" onMouseClicked="#lelangTableClick" prefHeight="155.0" prefWidth="561.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="295.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="col_kodelelang" prefWidth="147.0" text="Kode Lelang" />
-                <TableColumn fx:id="col_kodecustomer" prefWidth="142.0" text="Kode Customer" />
-                  <TableColumn fx:id="col_tgllelang" prefWidth="107.0" text="Tanggal Lelang" />
+                <TableColumn fx:id="col_kodecustomer" prefWidth="106.0" text="Kode Pelanggan" />
+                <TableColumn fx:id="col_kodelelang" prefWidth="91.0" text="Kode Lelang" />
+                  <TableColumn fx:id="col_tgllelang" prefWidth="101.0" text="Tanggal Lelang" />
+                  <TableColumn fx:id="col_kodebarang" prefWidth="129.0" text="Kode Barang" />
+                  <TableColumn fx:id="col_total" prefWidth="114.0" text="Total" />
               </columns>
             </TableView>
          </children>

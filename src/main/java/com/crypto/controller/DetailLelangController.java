@@ -6,8 +6,9 @@
 package com.crypto.controller;
 
 import com.crypto.AES128;
-import com.crypto.model.Admin;
+import com.crypto.model.DetailLelang;
 import com.crypto.model.Lelang;
+import com.crypto.model.TrxLelang;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
@@ -24,30 +25,44 @@ import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  */
 public class DetailLelangController implements Initializable {
     @FXML private AnchorPane paneLelang; 
-    @FXML private TableView<Lelang> lelang_table;
-    @FXML private TableColumn<Lelang, String> col_kodelelang;
-    @FXML private TableColumn<Lelang, String> col_kodecustomer;
-    @FXML private TableColumn<Lelang, String> col_tgllelang;
+    @FXML private TableView<TrxLelang> lelang_table;
+    @FXML private TableColumn<TrxLelang, String> col_kodelelang;
+    @FXML private TableColumn<TrxLelang, String> col_kodecustomer;
+    @FXML private TableColumn<TrxLelang, String> col_tgllelang;
+    @FXML private TableColumn<TrxLelang, String> col_kodebarang;
+    @FXML private TableColumn<TrxLelang, String> col_total;
+    
+    @FXML private TableView<DetailLelang> viewTable;
+    @FXML private TableColumn<DetailLelang, String> colViewKode;
+    @FXML private TableColumn<DetailLelang, String> colViewNama;
+    @FXML private TableColumn<DetailLelang, String> colViewHarga;
     @FXML private JFXButton but_ok;
     @FXML private JFXButton but_batal;
     @FXML private JFXButton but_update;
@@ -55,13 +70,16 @@ public class DetailLelangController implements Initializable {
     @FXML private TextField kodeLelang;
     @FXML private TextField kodeCustomer;
     @FXML private DatePicker tglLelang;
+    @FXML private TextField kodeBarang;
     @FXML private JFXToggleButton btn_switch;
     @FXML private Button but_searchcust;
-    @FXML private Button but_searchlelang;
     @FXML private Button but_searchbarang;
-    @FXML private TreeView tvList;
+    @FXML private Button but_add; 
     @FXML private Button but_searchclear;
     @FXML private TextField txtSearch;
+    @FXML private Label txtTotal;
+    
+    
     
     
     AES128 crypt;
@@ -69,9 +87,12 @@ public class DetailLelangController implements Initializable {
     DbHandler objDBHandler;
     Connection con;
     private PreparedStatement pst;
-    private ObservableList<Lelang> dataLelang;
+    private ObservableList<TrxLelang> dataTrxLelang;
+    private ObservableList<DetailLelang> dataDetailLelang;
     private int mode = 1;
     private int LastClick = -1;
+    //private Lelang buffLelang = new Lelang();
+    //private DetailLelang buffDetail = new DetailLelang();
     /**
      * Initializes the controller class.
      */
@@ -80,13 +101,18 @@ public class DetailLelangController implements Initializable {
         crypt = new AES128();
         assert lelang_table != null : "fx:id=\"lelang_table\" was not injected: check your FXML file 'SetupLelang.fxml'.";
         
-        col_kodelelang.setCellValueFactory(new PropertyValueFactory<Lelang, String>("KodeLelang"));
-        col_kodecustomer.setCellValueFactory(new PropertyValueFactory<Lelang, String>("KodeCustomer"));
-        col_tgllelang.setCellValueFactory(new PropertyValueFactory<Lelang, String>("TglLelang"));
-         
+        col_kodecustomer.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("KodeCustomer"));
+        col_kodelelang.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("KodeLelang"));
+        col_tgllelang.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("TglLelang"));
+        col_kodebarang.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("KodeBarang"));
+        col_total.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("Total"));
+        
+        colViewKode.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("KodeBarang"));
+        colViewNama.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("NamaBarang"));
+        colViewHarga.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("Harga"));
+        
         Image imageSearch = new Image(getClass().getResourceAsStream("/assets/search.png"));
         but_searchcust.setGraphic(new ImageView(imageSearch));
-        but_searchlelang.setGraphic(new ImageView(imageSearch));
         but_searchbarang.setGraphic(new ImageView(imageSearch));
         
         objDBHandler = new DbHandler();
@@ -121,29 +147,75 @@ public class DetailLelangController implements Initializable {
     }    
 
     private void buildData() {
-        dataLelang = FXCollections.observableArrayList();
+        dataTrxLelang = FXCollections.observableArrayList();
+        TrxLelang cm = null;
         try{      
-            String SQL = "Select * from lelang Order By kode_lelang";            
+            String SQL = "Select t1.kode_lelang, t1.kode_customer, t1.tgl_lelang, t2.kode_barang, t2.harga from lelang t1, detail_lelang t2 where t1.kode_lelang = t2.kode_lelang Order By t1.kode_lelang";            
             ResultSet rs = con.createStatement().executeQuery(SQL);  
+            String LastKodeLelang = "";
             while(rs.next()){  
+                String kd_lelang = rs.getString("kode_lelang");
                 BooleanProperty isOn = btn_switch.selectedProperty();
                 if (isOn.get()==true){
-                
-                    Lelang cm = new Lelang();
-                    cm.kode_lelang.set(rs.getString("kode_lelang"));
-                    cm.kode_customer.set(crypt.decrypt(rs.getString("kode_customer")));
-                    cm.tgl_lelang.set(rs.getString("tgl_lelang"));
-                    
-                    dataLelang.add(cm); 
+                    if (!kd_lelang.equals(LastKodeLelang)) {
+                        if (cm!=null) {
+                            dataTrxLelang.add(cm);
+                        } // should be new , then we must add to list
+                        //INITIALIZE cm
+                        cm = new TrxLelang();
+                        cm.total.set("0");
+                        cm.kode_barang.set("");
+
+                        cm.kode_lelang.set(kd_lelang);
+                        cm.kode_customer.set(crypt.decrypt(rs.getString("kode_customer")));
+                        cm.tgl_lelang.set(crypt.decrypt(rs.getString("tgl_lelang")));
+                        cm.kode_barang.set(cm.getKodeBarang() + crypt.decrypt(rs.getString("kode_barang")) + ";" ) ; 
+                        String tempHarga = StringUtils.remove(crypt.decrypt(rs.getString("harga")), ".") ;
+                        int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                        cm.total.set(Integer.toString(total));
+                        LastKodeLelang = kd_lelang;
+                    } else {
+                        if (cm!=null){
+                            cm.kode_barang.set(cm.getKodeBarang() + crypt.decrypt(rs.getString("kode_barang")) + ";" ) ; 
+                            String tempHarga = StringUtils.remove(crypt.decrypt(rs.getString("harga")), ".") ;
+                            int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                            cm.total.set(Integer.toString(total));
+                        }
+                    }
+
                 } else {
-                    Lelang cm = new Lelang();
-                    cm.kode_lelang.set(rs.getString("kode_lelang"));
-                    cm.kode_customer.set(rs.getString("kode_customer"));
-                    cm.tgl_lelang.set(rs.getString("tgl_lelang"));
-                    dataLelang.add(cm);
+                    if (!kd_lelang.equals(LastKodeLelang)) {
+                        if (cm!=null) {
+                            dataTrxLelang.add(cm);
+                        } // should be new , then we must add to list
+                        //INITIALIZE cm
+                        cm = new TrxLelang();
+                        cm.total.set("0");
+                        cm.kode_barang.set("");
+
+                        cm.kode_lelang.set(kd_lelang);
+                        cm.kode_customer.set(rs.getString("kode_customer"));
+                        cm.tgl_lelang.set(rs.getString("tgl_lelang"));
+                        cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
+                        String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
+                        int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                        cm.total.set(Integer.toString(total));
+                        LastKodeLelang = kd_lelang;
+                    } else {
+                        if (cm!=null){
+                            cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
+                            String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
+                            int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                            cm.total.set(Integer.toString(total));
+                        }
+                    }
                 }
+            } 
+            
+            if (cm!=null){
+                dataTrxLelang.add(cm);
             }
-            lelang_table.setItems(dataLelang);
+            lelang_table.setItems(dataTrxLelang);
         }
         catch(Exception e){
           e.printStackTrace();
@@ -155,8 +227,10 @@ public class DetailLelangController implements Initializable {
         mode = 1;
         kodeLelang.setText(getNewKode());
         kodeLelang.setEditable(false);
-        kodeCustomer.setText(null);
+        kodeCustomer.setText("");
         tglLelang.setValue(LocalDate.now());
+        kodeBarang.setText("");
+        kodeCustomer.requestFocus();
         
     }
 
@@ -186,16 +260,25 @@ public class DetailLelangController implements Initializable {
     @FXML protected void butOkClick() throws SQLException{
        if (mode == 1){ //new record
             try{
-                String insert = "INSERT INTO lelang(kode_lelang,kode_customer,tgl_lelang) "
-                    +  "VALUES (?,?,?)"; 
+                //insert table lelang
+                String insert = "INSERT INTO lelang(kode_lelang,kode_customer,tgl_lelang) VALUES (?,?,?)"; 
 
                 pst = con.prepareStatement(insert);
                 pst.setString(1, kodeLelang.getText().toUpperCase());
                 pst.setString(2, crypt.encrypt(kodeCustomer.getText()));
-                pst.setString(3, tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                pst.setString(3, crypt.encrypt(tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
 
                 int success = pst.executeUpdate();
                 if (success == 1) {
+                    //insert table detail_lelang
+                    /*insert = "INSERT INTO detail_lelang(kode_lelang,kode_barang,harga) VALUES (?,?,?)"; 
+
+                    pst = con.prepareStatement(insert);
+                    pst.setString(1, kodeLelang.getText().toUpperCase());
+                    pst.setString(2, crypt.encrypt(kodeBarang.getText()));
+                    pst.setString(3, crypt.encrypt(tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+                    */
+                    
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Tambah data");
                     alert.setHeaderText("Sukses menambah lelang");
@@ -248,7 +331,7 @@ public class DetailLelangController implements Initializable {
     }
     
     @FXML protected void butDeleteClick(){
-        Lelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
+        TrxLelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
         if (selectedData!=null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Hapus data");
@@ -262,12 +345,18 @@ public class DetailLelangController implements Initializable {
                     pst.setString(1, selectedData.getKodeLelang());
                     int success = pst.executeUpdate();
                     if (success == 1) {
-                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                        alert2.setTitle("Hapus data");
-                        alert2.setHeaderText("Sukses menghapus lelang");
-                        alert2.show();
-                        buildData();
-                        clearFields();
+                        delet = "DELETE FROM detail_lelang where kode_lelang  = ?"; 
+                        pst = con.prepareStatement(delet);
+                        pst.setString(1, selectedData.getKodeLelang());
+                        success = pst.executeUpdate();
+                        if (success == 1) {
+                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                            alert2.setTitle("Hapus data");
+                            alert2.setHeaderText("Sukses menghapus lelang");
+                            alert2.show();
+                            buildData();
+                            clearFields();
+                        }
                     }
                 } catch (Exception e){
                     e.printStackTrace();
@@ -290,7 +379,7 @@ public class DetailLelangController implements Initializable {
     
     @FXML protected void lelangTableKeyPressed (KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
-            Lelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
+            TrxLelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
             //if ((selectedData==null)&&(LastClick!=null)) selectedData = LastClick;
             if (selectedData!=null){
                 mode = 2;
@@ -306,7 +395,7 @@ public class DetailLelangController implements Initializable {
     @FXML protected void lelangTableKeyReleased(KeyEvent event){
        if ((event.getCode().toString().equals("UP")) || 
             (event.getCode().toString().equals("DOWN")) ){
-            Lelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
+            TrxLelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
             //if ((selectedData==null)&&(LastClick!=null)) selectedData = LastClick;
             if (selectedData!=null){
                 kodeLelang.setText(selectedData.getKodeLelang());
@@ -318,7 +407,7 @@ public class DetailLelangController implements Initializable {
     }
     
     @FXML protected void lelangTableClick(){
-       Lelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
+       TrxLelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
        
        if ((selectedData==null)&&(LastClick!=-1)) {
            lelang_table.getSelectionModel().select(LastClick);
@@ -341,46 +430,58 @@ public class DetailLelangController implements Initializable {
         return localDate;
     }
     
-    @FXML protected void butSearchLelangClick(){
-        
+    
+    
+    @FXML protected void butSearchCustClick() throws Exception{
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Parent popup = FXMLLoader.load(getClass().getResource("/fxml/PopupCustomer.fxml"));
+        Scene dialogScene = new Scene(popup);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
     
-    @FXML protected void butSearchCustClick(){
-        
-    }
-    
-    @FXML protected void butSearchBarangClick(){
-        
+    @FXML protected void butSearchBarangClick() throws Exception{
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Parent popup = FXMLLoader.load(getClass().getResource("/fxml/PopupBarang.fxml"));
+        Scene dialogScene = new Scene(popup);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
     
     @FXML protected void butSearchClearClick(){
        txtSearch.setText("");
        txtSearch.requestFocus();
-       lelang_table.setItems(dataLelang);
+       lelang_table.setItems(dataTrxLelang);
     }
     
     
     @FXML protected void txtSearchReleased(){
         if(txtSearch.getText().isEmpty()) {
-            lelang_table.setItems(dataLelang);
+            lelang_table.setItems(dataTrxLelang);
             return;
         }
-        ObservableList<Lelang> tableItems = FXCollections.observableArrayList();
-        ObservableList<TableColumn<Lelang, ?>> cols = lelang_table.getColumns();
-        for(int i=0; i<dataLelang.size(); i++) {
+        ObservableList<TrxLelang> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<TrxLelang, ?>> cols = lelang_table.getColumns();
+        for(int i=0; i<dataTrxLelang.size(); i++) {
 
             for(int j=0; j<cols.size(); j++) {
                 TableColumn col = cols.get(j);
-                String cellValue = col.getCellData(dataLelang.get(i)).toString();
+                String cellValue = col.getCellData(dataTrxLelang.get(i)).toString();
                 cellValue = cellValue.toLowerCase();
                 if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
-                    tableItems.add(dataLelang.get(i));
+                    tableItems.add(dataTrxLelang.get(i));
                     break;
                 }                        
             }
 
         }
         lelang_table.setItems(tableItems);
+    }
+    
+    @FXML protected void but_addClick(){
+        
     }
     
 }

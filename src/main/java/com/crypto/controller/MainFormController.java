@@ -134,7 +134,7 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("Tentang",
             new ImageView("/assets/about.png"),
             "About",
-            content, false, false);
+            content, true, true);
         //Set MDI Size
         mdiWindow.maxHeight(250);
         mdiWindow.maxWidth(340);
@@ -165,7 +165,7 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("AdminWindow",
             new ImageView("/assets/admin.png"),
             "INPUT DATA",
-            content);
+            content, true);
         //Set MDI Size
         mdiWindow.setMinSize(690, 630);
         mdiWindow.setMaxDisable(true);
@@ -190,7 +190,7 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("AdminBarang",
             new ImageView("/assets/box.png"),
             "INPUT DATA",
-            content);
+            content, true);
         //Set MDI Size
         mdiWindow.setMinSize(650, 520);
         mdiWindow.setMaxDisable(true);
@@ -213,7 +213,7 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("Customer",
             new ImageView("/assets/customer.png"),
             "INPUT DATA",
-            content);
+            content, true);
         //Set MDI Size
         mdiWindow.setMinSize(680, 590);
         mdiWindow.setMaxDisable(true);
@@ -235,9 +235,9 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("Lelang",
             new ImageView("/assets/auction.png"),
             "TRANSAKSI",
-            content);
+            content, true);
         //Set MDI Size
-        mdiWindow.setMinSize(635, 490);
+        mdiWindow.setMinSize(655, 500);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow); 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="panePopup" prefHeight="307.0" prefWidth="374.0" style="-fx-background-color: #919D94;" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.crypto.controller.PopupBarangController">
+    <stylesheets>
+        <URL value="@/styles/adminform.css" />
+    </stylesheets>
+   <children>
+      <Label alignment="CENTER" layoutX="19.0" layoutY="14.0" prefHeight="17.0" prefWidth="266.0" style="-fx-font-weight: bold;" text="POPUP DATA BARANG" textFill="#eb0707" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="pop_table" layoutX="19.0" layoutY="41.0" prefHeight="200.0" prefWidth="266.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="41.0">
+        <columns>
+          <TableColumn fx:id="colKode" prefWidth="166.0" text="Kode Barang" />
+          <TableColumn fx:id="colNama" prefWidth="165.0" text="Nama Barang" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="but_pilih" layoutX="205.0" layoutY="251.0" onAction="#butPilihClick" prefHeight="34.0" prefWidth="72.0" style="-fx-background-color: #A7F18D;" text="Pilih" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="19.0" />
+   </children>
+</AnchorPane>
