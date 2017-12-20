@@ -41,6 +41,7 @@ import javafx.util.Duration;
  */
 public class MainFormController implements Initializable {
 
+
     MDICanvas mdiCanvas = null;
     @FXML
     private AnchorPane mainPane;
@@ -56,7 +57,7 @@ public class MainFormController implements Initializable {
     Prefs pref = new Prefs();
     
     int count = 0;
-      
+    static DetailLelangController DetailControllerHandle;  
      
     
     
@@ -224,7 +225,9 @@ public class MainFormController implements Initializable {
      @FXML protected void admLelangClick(){
         Node content = null;
         try {
-            content = FXMLLoader.load(getClass().getResource("/fxml/DetailLelang.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DetailLelang.fxml"));
+            content = loader.load();
+            DetailControllerHandle = (DetailLelangController)loader.getController();
         } 
             catch (Exception e) {
         }
@@ -237,12 +240,20 @@ public class MainFormController implements Initializable {
             "TRANSAKSI",
             content, true);
         //Set MDI Size
-        mdiWindow.setMinSize(655, 500);
+        mdiWindow.setMinSize(655, 510);
         mdiWindow.setMaxDisable(true);
         //Add it to the container
         mdiCanvas.addMDIWindow(mdiWindow); 
      }
      
+     
+     public static void setDetailKodeBarang(String kode){
+         DetailControllerHandle.setKodeBarang(kode);
+     }
+     
+     public static void setDetailKodeCustomer(String kode){
+         DetailControllerHandle.setKodeCustomer(kode);
+     }
      
     
 }

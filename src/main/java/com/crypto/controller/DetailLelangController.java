@@ -148,6 +148,7 @@ public class DetailLelangController implements Initializable {
 
     private void buildData() {
         dataTrxLelang = FXCollections.observableArrayList();
+        dataDetailLelang = FXCollections.observableArrayList();
         TrxLelang cm = null;
         try{      
             String SQL = "Select t1.kode_lelang, t1.kode_customer, t1.tgl_lelang, t2.kode_barang, t2.harga from lelang t1, detail_lelang t2 where t1.kode_lelang = t2.kode_lelang Order By t1.kode_lelang";            
@@ -216,6 +217,8 @@ public class DetailLelangController implements Initializable {
                 dataTrxLelang.add(cm);
             }
             lelang_table.setItems(dataTrxLelang);
+            //viewTable set clear
+            viewTable.setItems(dataDetailLelang);
         }
         catch(Exception e){
           e.printStackTrace();
@@ -481,7 +484,39 @@ public class DetailLelangController implements Initializable {
     }
     
     @FXML protected void but_addClick(){
-        
+        if ((!kodeLelang.getText().isEmpty())&&(!kodeBarang.getText().isEmpty()) ){
+            try 
+            {   
+                DetailLelang cm = new DetailLelang();
+                String SQL = "Select nama, harga from barang where kode = ?";
+                pst = con.prepareStatement(SQL);
+                pst.setString(1, kodeBarang.getText());
+                ResultSet rs = pst.executeQuery();  
+                if(rs.next()){  
+                    cm.nama_barang.set(crypt.decrypt(rs.getString("nama")));
+                    cm.harga.set(crypt.decrypt(rs.getString("harga")));
+                    cm.kode_lelang.set(kodeLelang.getText());
+                    cm.kode_barang.set(kodeBarang.getText());
+                    dataDetailLelang.add(cm);
+                }
+                
+                viewTable.setItems(dataDetailLelang);
+                
+                
+            } catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error on add detail data");            
+            }
+        }
+    }
+    
+
+    void setKodeBarang(String kode) {
+        kodeBarang.setText(kode);
+    }
+    
+    void setKodeCustomer(String kode) {
+        kodeCustomer.setText(kode);
     }
     
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="panePopup" prefHeight="307.0" prefWidth="374.0" style="-fx-background-color: #919D94;" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.crypto.controller.PopupBarangController">
+<AnchorPane id="AnchorPane" fx:id="panePopup" prefHeight="307.0" prefWidth="374.0" style="-fx-background-color: #919D94;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.PopupBarangController">
     <stylesheets>
         <URL value="@/styles/adminform.css" />
     </stylesheets>
@@ -19,7 +19,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="pop_table" layoutX="19.0" layoutY="41.0" prefHeight="200.0" prefWidth="266.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="41.0">
+      <TableView fx:id="pop_table" layoutX="19.0" layoutY="41.0" onMouseClicked="#popTableClick" prefHeight="200.0" prefWidth="266.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="41.0">
         <columns>
           <TableColumn fx:id="colKode" prefWidth="166.0" text="Kode Barang" />
           <TableColumn fx:id="colNama" prefWidth="165.0" text="Nama Barang" />
