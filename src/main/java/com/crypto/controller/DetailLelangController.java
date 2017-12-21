@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -75,6 +77,7 @@ public class DetailLelangController implements Initializable {
     @FXML private Button but_searchcust;
     @FXML private Button but_searchbarang;
     @FXML private Button but_add; 
+    @FXML private Button but_remove;    
     @FXML private Button but_searchclear;
     @FXML private TextField txtSearch;
     @FXML private Label txtTotal;
@@ -87,6 +90,7 @@ public class DetailLelangController implements Initializable {
     DbHandler objDBHandler;
     Connection con;
     private PreparedStatement pst;
+    private PreparedStatement dst;
     private ObservableList<TrxLelang> dataTrxLelang;
     private ObservableList<DetailLelang> dataDetailLelang;
     private int mode = 1;
@@ -106,10 +110,12 @@ public class DetailLelangController implements Initializable {
         col_tgllelang.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("TglLelang"));
         col_kodebarang.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("KodeBarang"));
         col_total.setCellValueFactory(new PropertyValueFactory<TrxLelang, String>("Total"));
+        col_total.setStyle( "-fx-alignment: CENTER-RIGHT;");
         
         colViewKode.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("KodeBarang"));
         colViewNama.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("NamaBarang"));
         colViewHarga.setCellValueFactory(new PropertyValueFactory<DetailLelang, String>("Harga"));
+        colViewHarga.setStyle( "-fx-alignment: CENTER-RIGHT;");
         
         Image imageSearch = new Image(getClass().getResourceAsStream("/assets/search.png"));
         but_searchcust.setGraphic(new ImageView(imageSearch));
@@ -142,13 +148,28 @@ public class DetailLelangController implements Initializable {
         tglLelang.setConverter(converter);
         tglLelang.setPromptText("dd-mm-yyyy");
         
-        buildData();
+        buildData(true);
         clearFields();
-    }    
+    } 
+    
+    private String formata(Double valor) {
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getNumberInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
-    private void buildData() {
+        //kursIndonesia.setMaximumIntegerDigits(0);
+        //kursIndonesia.setMinimumIntegerDigits(0);
+        formatRp.setCurrencySymbol("");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        return kursIndonesia.format(valor);
+    }
+
+    private void buildData(boolean clearView) {
         dataTrxLelang = FXCollections.observableArrayList();
-        dataDetailLelang = FXCollections.observableArrayList();
+        if (clearView) {
+            dataDetailLelang = FXCollections.observableArrayList();
+        }
         TrxLelang cm = null;
         try{      
             String SQL = "Select t1.kode_lelang, t1.kode_customer, t1.tgl_lelang, t2.kode_barang, t2.harga from lelang t1, detail_lelang t2 where t1.kode_lelang = t2.kode_lelang Order By t1.kode_lelang";            
@@ -170,17 +191,17 @@ public class DetailLelangController implements Initializable {
                         cm.kode_lelang.set(kd_lelang);
                         cm.kode_customer.set(crypt.decrypt(rs.getString("kode_customer")));
                         cm.tgl_lelang.set(crypt.decrypt(rs.getString("tgl_lelang")));
-                        cm.kode_barang.set(cm.getKodeBarang() + crypt.decrypt(rs.getString("kode_barang")) + ";" ) ; 
+                        cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
                         String tempHarga = StringUtils.remove(crypt.decrypt(rs.getString("harga")), ".") ;
-                        int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
-                        cm.total.set(Integer.toString(total));
+                        int total = Integer.parseInt(StringUtils.remove(cm.getTotal(), ".")) + Integer.parseInt(tempHarga);
+                        cm.total.set(formata((double) total));
                         LastKodeLelang = kd_lelang;
                     } else {
                         if (cm!=null){
-                            cm.kode_barang.set(cm.getKodeBarang() + crypt.decrypt(rs.getString("kode_barang")) + ";" ) ; 
+                            cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
                             String tempHarga = StringUtils.remove(crypt.decrypt(rs.getString("harga")), ".") ;
-                            int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
-                            cm.total.set(Integer.toString(total));
+                            int total = Integer.parseInt(StringUtils.remove(cm.getTotal(), ".")) +  Integer.parseInt(tempHarga);
+                            cm.total.set(formata((double) total));
                         }
                     }
 
@@ -198,16 +219,17 @@ public class DetailLelangController implements Initializable {
                         cm.kode_customer.set(rs.getString("kode_customer"));
                         cm.tgl_lelang.set(rs.getString("tgl_lelang"));
                         cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
-                        String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
-                        int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
-                        cm.total.set(Integer.toString(total));
+                        //String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
+                        //int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                        cm.total.set(rs.getString("harga"));
                         LastKodeLelang = kd_lelang;
                     } else {
                         if (cm!=null){
                             cm.kode_barang.set(cm.getKodeBarang() + rs.getString("kode_barang") + ";" ) ; 
-                            String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
-                            int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
-                            cm.total.set(Integer.toString(total));
+                            //String tempHarga = StringUtils.remove(rs.getString("harga"), ".") ;
+                            //int total = Integer.parseInt(cm.getTotal()) + Integer.parseInt(tempHarga);
+                            //cm.total.set(Integer.toString(total));
+                            cm.total.set(rs.getString("harga"));
                         }
                     }
                 }
@@ -234,7 +256,9 @@ public class DetailLelangController implements Initializable {
         tglLelang.setValue(LocalDate.now());
         kodeBarang.setText("");
         kodeCustomer.requestFocus();
-        
+        dataDetailLelang = FXCollections.observableArrayList(); 
+        //viewTable.setItems(dataDetailLelang);
+        txtTotal.setText("0");
     }
 
     private String getNewKode() {
@@ -274,61 +298,92 @@ public class DetailLelangController implements Initializable {
                 int success = pst.executeUpdate();
                 if (success == 1) {
                     //insert table detail_lelang
-                    /*insert = "INSERT INTO detail_lelang(kode_lelang,kode_barang,harga) VALUES (?,?,?)"; 
-
-                    pst = con.prepareStatement(insert);
-                    pst.setString(1, kodeLelang.getText().toUpperCase());
-                    pst.setString(2, crypt.encrypt(kodeBarang.getText()));
-                    pst.setString(3, crypt.encrypt(tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
-                    */
-                    
+                    for (DetailLelang item : viewTable.getItems()) {
+                        insert = "INSERT INTO detail_lelang(kode_lelang,kode_barang,harga) VALUES (?,?,?)"; 
+                        pst = con.prepareStatement(insert);
+                        pst.setString(1, kodeLelang.getText().toUpperCase());
+                        pst.setString(2, item.getKodeBarang()); // jgn di encrypt 
+                        pst.setString(3, crypt.encrypt(item.getHarga()));
+                        success = pst.executeUpdate();
+                        if (success == 1) { 
+                            //System.out.println("insert detail_lelang done..");
+                        }
+                    }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Tambah data");
-                    alert.setHeaderText("Sukses menambah lelang");
+                    alert.setHeaderText("Sukses menambah transaksi");
                     alert.show();
-                    buildData();
                     clearFields();
+                    buildData(true);
                 }
             } catch (NullPointerException np){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Tambah data");
                 alert.setHeaderText("Semua field harus diisi dahulu");
                 alert.show();
+                
             }
         } else {
             clearFields();
+            buildData(true);
         } 
     }
     @FXML protected void butBatalClick(){
-        clearFields(); 
+        clearFields();
+        buildData(true);
     }
     
     @FXML protected void butUpdateClick() throws SQLException{
         if (mode == 2) {
-            BooleanProperty isOn = btn_switch.selectedProperty();
-            String updat = "UPDATE  lelang set kode_customer = ?, tgl_lelang = ?" + 
-                           " WHERE kode_lelang = ?";
-           
-            pst = con.prepareStatement(updat);
-            if (isOn.get()==true){
-                pst.setString(1, crypt.encrypt(kodeCustomer.getText()));
-                pst.setString(2, tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-                pst.setString(3, kodeLelang.getText());
-            } else {
-                pst.setString(1, kodeCustomer.getText());
-                pst.setString(2, tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-                pst.setString(3, kodeLelang.getText());
-            }
-                
-            
+            //DELETE FIRST
+            String delet = "DELETE FROM lelang where kode_lelang  = ?"; 
+            pst = con.prepareStatement(delet);
+            pst.setString(1, kodeLelang.getText());
             int success = pst.executeUpdate();
-            if (success == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Simpan data");
-                alert.setHeaderText("Sukses menyimpan lelang");
-                alert.show();
-                buildData();
-                clearFields();
+            if (success >= 1) {
+                String delet2 = "DELETE FROM detail_lelang where kode_lelang  = ?"; 
+                dst = con.prepareStatement(delet2);
+                dst.setString(1, kodeLelang.getText());
+                int success2 = dst.executeUpdate();
+                if (success2 >= 1) {
+                   try{
+                        //insert table lelang
+                        String insert = "INSERT INTO lelang(kode_lelang,kode_customer,tgl_lelang) VALUES (?,?,?)"; 
+
+                        pst = con.prepareStatement(insert);
+                        pst.setString(1, kodeLelang.getText().toUpperCase());
+                        pst.setString(2, crypt.encrypt(kodeCustomer.getText()));
+                        pst.setString(3, crypt.encrypt(tglLelang.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+
+                        int success3 = pst.executeUpdate();
+                        if (success3 == 1) {
+                            //insert table detail_lelang
+                            for (DetailLelang item : viewTable.getItems()) {
+                                insert = "INSERT INTO detail_lelang(kode_lelang,kode_barang,harga) VALUES (?,?,?)"; 
+                                pst = con.prepareStatement(insert);
+                                pst.setString(1, kodeLelang.getText().toUpperCase());
+                                pst.setString(2, item.getKodeBarang()); // jgn di encrypt 
+                                pst.setString(3, crypt.encrypt(item.getHarga()));
+                                success = pst.executeUpdate();
+                                if (success3 == 1) { 
+                                    //System.out.println("insert detail_lelang done..");
+                                }
+                            }
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Update data");
+                            alert.setHeaderText("Sukses update transaksi");
+                            alert.show();
+                            //clearFields();
+                            buildData(false);
+                        }
+                    } catch (NullPointerException np){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Update data");
+                        alert.setHeaderText("Semua field harus diisi dahulu");
+                        alert.show();
+
+                    } 
+                }
             }
         }
     }
@@ -338,7 +393,7 @@ public class DetailLelangController implements Initializable {
         if (selectedData!=null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Hapus data");
-            alert.setHeaderText("Hapus data lelang " + selectedData.getKodeLelang() + " ?");
+            alert.setHeaderText("Hapus data transaksi " + selectedData.getKodeLelang() + " ?");
             
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
@@ -347,18 +402,18 @@ public class DetailLelangController implements Initializable {
                     pst = con.prepareStatement(delet);
                     pst.setString(1, selectedData.getKodeLelang());
                     int success = pst.executeUpdate();
-                    if (success == 1) {
-                        delet = "DELETE FROM detail_lelang where kode_lelang  = ?"; 
-                        pst = con.prepareStatement(delet);
-                        pst.setString(1, selectedData.getKodeLelang());
-                        success = pst.executeUpdate();
-                        if (success == 1) {
+                    if (success >= 1) {
+                        String delet2 = "DELETE FROM detail_lelang where kode_lelang  = ?"; 
+                        dst = con.prepareStatement(delet2);
+                        dst.setString(1, selectedData.getKodeLelang());
+                        int success2 = dst.executeUpdate();
+                        if (success2 >= 1) {
                             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                             alert2.setTitle("Hapus data");
-                            alert2.setHeaderText("Sukses menghapus lelang");
+                            alert2.setHeaderText("Sukses menghapus transaksi");
                             alert2.show();
-                            buildData();
                             clearFields();
+                            buildData(true);
                         }
                     }
                 } catch (Exception e){
@@ -366,7 +421,7 @@ public class DetailLelangController implements Initializable {
                     System.out.println("Error on Building Data");   
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                     alert2.setTitle("Hapus data");
-                    alert2.setHeaderText("Gagal menghapus lelang! " + e.getMessage().toString());
+                    alert2.setHeaderText("Gagal menghapus transaksi! " + e.getMessage().toString());
                     alert2.show();
                 }
             } 
@@ -375,7 +430,7 @@ public class DetailLelangController implements Initializable {
     
     @FXML protected void btnSwitchClick(){
         LastClick = lelang_table.getSelectionModel().getSelectedIndex();
-        buildData();
+        buildData(true);
         lelangTableClick();
         lelang_table.requestFocus(); 
     }
@@ -388,8 +443,37 @@ public class DetailLelangController implements Initializable {
                 mode = 2;
                 kodeLelang.setText(selectedData.getKodeLelang());
                 kodeLelang.setEditable(false);
-                kodeCustomer.setText(selectedData.getKodeCustomer());
-                tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+                
+                BooleanProperty isOn = btn_switch.selectedProperty();
+                if (isOn.get()==true){
+                    kodeCustomer.setText(selectedData.getKodeCustomer());
+                    tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+                } else {
+                    kodeCustomer.setText(crypt.decrypt(selectedData.getKodeCustomer()));
+                    tglLelang.setValue(LOCAL_DATE(crypt.decrypt(selectedData.getTglLelang())));
+                }
+
+                try{
+                    String selectstr = "SELECT t1.*, t2.nama from detail_lelang t1, barang t2 where t2.kode=t1.kode_barang and t1.kode_lelang = ?"; 
+                    pst = con.prepareStatement(selectstr);
+                    pst.setString(1, selectedData.getKodeLelang());
+                    ResultSet rs = pst.executeQuery();  
+                    dataDetailLelang = FXCollections.observableArrayList(); 
+                    txtTotal.setText("0");
+                    while(rs.next()){  
+                        DetailLelang cm = new DetailLelang();
+                        cm.nama_barang.set(crypt.decrypt(rs.getString("nama")));
+                        cm.harga.set(crypt.decrypt(rs.getString("harga")));
+                        cm.kode_lelang.set(kodeLelang.getText());
+                        cm.kode_barang.set(rs.getString("kode_barang"));
+                        dataDetailLelang.add(cm);
+                    }
+                    viewTable.setItems(dataDetailLelang);
+                    txtTotal.setText(calculateTotal());
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                    System.out.println("Error on lelangTableClick");    
+                }
                 
             }
         }
@@ -401,10 +485,39 @@ public class DetailLelangController implements Initializable {
             TrxLelang selectedData = lelang_table.getSelectionModel().getSelectedItem();
             //if ((selectedData==null)&&(LastClick!=null)) selectedData = LastClick;
             if (selectedData!=null){
+                 mode = 2;
                 kodeLelang.setText(selectedData.getKodeLelang());
                 kodeLelang.setEditable(false);
-                kodeCustomer.setText(selectedData.getKodeCustomer());
-                tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+                BooleanProperty isOn = btn_switch.selectedProperty();
+                if (isOn.get()==true){
+                    kodeCustomer.setText(selectedData.getKodeCustomer());
+                    tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+                } else {
+                    kodeCustomer.setText(crypt.decrypt(selectedData.getKodeCustomer()));
+                    tglLelang.setValue(LOCAL_DATE(crypt.decrypt(selectedData.getTglLelang())));
+                }
+
+                try{
+                    String selectstr = "SELECT t1.*, t2.nama from detail_lelang t1, barang t2 where t2.kode=t1.kode_barang and t1.kode_lelang = ?"; 
+                    pst = con.prepareStatement(selectstr);
+                    pst.setString(1, selectedData.getKodeLelang());
+                    ResultSet rs = pst.executeQuery();  
+                    dataDetailLelang = FXCollections.observableArrayList(); 
+                    txtTotal.setText("0");
+                    while(rs.next()){  
+                        DetailLelang cm = new DetailLelang();
+                        cm.nama_barang.set(crypt.decrypt(rs.getString("nama")));
+                        cm.harga.set(crypt.decrypt(rs.getString("harga")));
+                        cm.kode_lelang.set(kodeLelang.getText());
+                        cm.kode_barang.set(rs.getString("kode_barang"));
+                        dataDetailLelang.add(cm);
+                    }
+                    viewTable.setItems(dataDetailLelang);
+                    txtTotal.setText(calculateTotal());
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                    System.out.println("Error on lelangTableClick");    
+                }
             }
        } 
     }
@@ -421,9 +534,37 @@ public class DetailLelangController implements Initializable {
             mode = 2;
             kodeLelang.setText(selectedData.getKodeLelang());
             kodeLelang.setEditable(false);
-            kodeCustomer.setText(selectedData.getKodeCustomer());
             BooleanProperty isOn = btn_switch.selectedProperty();
-            tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+            if (isOn.get()==true){
+                    kodeCustomer.setText(selectedData.getKodeCustomer());
+                    tglLelang.setValue(LOCAL_DATE(selectedData.getTglLelang()));
+                } else {
+                    kodeCustomer.setText(crypt.decrypt(selectedData.getKodeCustomer()));
+                    tglLelang.setValue(LOCAL_DATE(crypt.decrypt(selectedData.getTglLelang())));
+                }
+            
+            try{
+                String selectstr = "SELECT t1.*, t2.nama from detail_lelang t1, barang t2 where t2.kode=t1.kode_barang and t1.kode_lelang = ?"; 
+                pst = con.prepareStatement(selectstr);
+                pst.setString(1, selectedData.getKodeLelang());
+                ResultSet rs = pst.executeQuery();  
+                dataDetailLelang = FXCollections.observableArrayList(); 
+                txtTotal.setText("0");
+                while(rs.next()){  
+                    DetailLelang cm = new DetailLelang();
+                    cm.nama_barang.set(crypt.decrypt(rs.getString("nama")));
+                    cm.harga.set(crypt.decrypt(rs.getString("harga")));
+                    cm.kode_lelang.set(kodeLelang.getText());
+                    cm.kode_barang.set(rs.getString("kode_barang"));
+                    dataDetailLelang.add(cm);
+                }
+                viewTable.setItems(dataDetailLelang);
+                txtTotal.setText(calculateTotal());
+            } catch (Exception ex){
+                ex.printStackTrace();
+                System.out.println("Error on lelangTableClick");    
+            }
+            
        } 
     }
     
@@ -436,12 +577,17 @@ public class DetailLelangController implements Initializable {
     
     
     @FXML protected void butSearchCustClick() throws Exception{
+        clearFields();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         Parent popup = FXMLLoader.load(getClass().getResource("/fxml/PopupCustomer.fxml"));
         Scene dialogScene = new Scene(popup);
         dialog.setScene(dialogScene);
         dialog.show();
+        
+        //clear viewTable 
+        dataDetailLelang = FXCollections.observableArrayList();
+        viewTable.setItems(dataDetailLelang);
     }
     
     @FXML protected void butSearchBarangClick() throws Exception{
@@ -501,7 +647,7 @@ public class DetailLelangController implements Initializable {
                 }
                 
                 viewTable.setItems(dataDetailLelang);
-                
+                txtTotal.setText(calculateTotal());
                 
             } catch(Exception e){
                 e.printStackTrace();
@@ -510,6 +656,14 @@ public class DetailLelangController implements Initializable {
         }
     }
     
+    
+    @FXML protected void but_removeClick(){
+        DetailLelang selectedData = viewTable.getSelectionModel().getSelectedItem();
+        if (selectedData!=null){
+            dataDetailLelang.remove(selectedData);
+        }
+        txtTotal.setText(calculateTotal());
+    }
 
     void setKodeBarang(String kode) {
         kodeBarang.setText(kode);
@@ -517,6 +671,16 @@ public class DetailLelangController implements Initializable {
     
     void setKodeCustomer(String kode) {
         kodeCustomer.setText(kode);
+    }
+    
+    private String calculateTotal(){
+        double total = 0 ;
+        String harga = "";
+        for (DetailLelang item : viewTable.getItems()) {
+            harga = StringUtils.remove( item.getHarga(), ".");
+            total = total + Integer.parseInt(harga);
+        }
+        return formata(total);
     }
     
 }
