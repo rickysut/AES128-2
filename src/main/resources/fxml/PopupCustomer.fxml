@@ -15,12 +15,27 @@
     </stylesheets>
    <children>
       <JFXButton fx:id="but_pilih" layoutX="215.0" layoutY="261.0" onAction="#butPilihClick" prefHeight="34.0" prefWidth="72.0" style="-fx-background-color: #A7F18D;" text="Pilih" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="19.0" />
-      <TableView fx:id="pop_table" layoutX="29.0" layoutY="51.0" onMouseClicked="#popTableClick" prefHeight="200.0" prefWidth="320.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="41.0">
-         <columns>
-            <TableColumn fx:id="colKode" prefWidth="166.0" text="Kode Pelanggan" />
-            <TableColumn fx:id="colNama" prefWidth="165.0" text="Nama Pelanggan" />
-         </columns>
-      </TableView>
+      <VBox layoutX="19.0" layoutY="61.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="41.0">
+         <children>
+            <HBox layoutX="25.0" layoutY="61.0" prefHeight="25.0" prefWidth="336.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="258.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="pop_table" layoutX="29.0" layoutY="82.0" onMouseClicked="#popTableClick" prefHeight="161.0" prefWidth="336.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="82.0">
+               <columns>
+                  <TableColumn fx:id="colKode" prefWidth="166.0" text="Kode Pelanggan" />
+                  <TableColumn fx:id="colNama" prefWidth="165.0" text="Nama Pelanggan" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
       <Label alignment="CENTER" layoutX="29.0" layoutY="24.0" prefHeight="17.0" prefWidth="266.0" style="-fx-font-weight: bold;" text="POPUP DATA PELANGGAN" textFill="#eb0707" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="14.0" />

@@ -18,8 +18,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,6 +38,8 @@ public class PopupBarangController implements Initializable {
     @FXML private TableView<Barang> pop_table;
     @FXML private TableColumn<Barang, String> colKode;
     @FXML private TableColumn<Barang, String> colNama;
+    @FXML private Button but_searchclear;
+    @FXML private TextField txtSearch;    
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -99,6 +103,36 @@ public class PopupBarangController implements Initializable {
             PopupStage.close(); 
         }
         
+    }
+    
+    @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       pop_table.setItems(dataBarang);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        if(txtSearch.getText().isEmpty()) {
+            pop_table.setItems(dataBarang);
+            return;
+        }
+        ObservableList<Barang> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Barang, ?>> cols = pop_table.getColumns();
+        for(int i=0; i<dataBarang.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataBarang.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataBarang.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        pop_table.setItems(tableItems);
     }
     
     

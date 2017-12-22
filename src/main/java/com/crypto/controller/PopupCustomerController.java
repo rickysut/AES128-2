@@ -6,6 +6,7 @@
 package com.crypto.controller;
 
 import com.crypto.AES128;
+import com.crypto.model.Barang;
 import com.crypto.model.Customer;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
@@ -18,8 +19,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +38,8 @@ public class PopupCustomerController implements Initializable {
     @FXML private TableView<Customer> pop_table;
     @FXML private TableColumn<Customer, String> colKode;
     @FXML private TableColumn<Customer, String> colNama;
+    @FXML private Button but_searchclear;
+    @FXML private TextField txtSearch;    
     AES128 crypt;
     
     DbHandler objDBHandler;
@@ -96,6 +101,36 @@ public class PopupCustomerController implements Initializable {
             PopupStage.close(); 
         }
         
+    }
+    
+    @FXML protected void butSearchClearClick(){
+       txtSearch.setText("");
+       txtSearch.requestFocus();
+       pop_table.setItems(dataCustomer);
+    }
+    
+    
+    @FXML protected void txtSearchReleased(){
+        if(txtSearch.getText().isEmpty()) {
+            pop_table.setItems(dataCustomer);
+            return;
+        }
+        ObservableList<Customer> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<Customer, ?>> cols = pop_table.getColumns();
+        for(int i=0; i<dataCustomer.size(); i++) {
+
+            for(int j=0; j<cols.size(); j++) {
+                TableColumn col = cols.get(j);
+                String cellValue = col.getCellData(dataCustomer.get(i)).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(txtSearch.textProperty().get().toLowerCase())) {
+                    tableItems.add(dataCustomer.get(i));
+                    break;
+                }                        
+            }
+
+        }
+        pop_table.setItems(tableItems);
     }
     
 }
