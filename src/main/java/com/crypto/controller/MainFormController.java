@@ -9,7 +9,11 @@ import br.com.supremeforever.mdi.MDICanvas;
 import br.com.supremeforever.mdi.MDIWindow;
 import com.crypto.LoginClass;
 import com.crypto.Prefs;
+import com.crypto.utility.DbHandler;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Optional;
@@ -54,12 +58,15 @@ public class MainFormController implements Initializable {
     @FXML
     private Menu admUserid;
     
+    
+    
     Prefs pref = new Prefs();
     
     int count = 0;
-    static DetailLelangController DetailControllerHandle;  
-     
-    
+    static DetailLelangController DetailControllerHandle;
+    DbHandler objDBHandler;
+    Connection con; 
+    private PreparedStatement pst;
     
     /**
      * Initializes the controller class.
@@ -78,7 +85,8 @@ public class MainFormController implements Initializable {
         AnchorPane.setRightAnchor(mdiCanvas, 0d);
         mainPane.getChildren().add(mdiCanvas);
         admUserid.setText(pref.getPrefs("loged_user"));
-        
+        objDBHandler = new DbHandler();
+        con = objDBHandler.getConnection();
         
         
     }    
@@ -108,6 +116,11 @@ public class MainFormController implements Initializable {
             //alert.setContentText("Logout dari layar utama?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
+                String SQL = "Insert into logging (log_date, log_kode, log_nama, log_value) values (now(), '"+
+                           pref.getPrefs("loged_kode") + "', '" +
+                           pref.getPrefs("loged_user") + "', 'Logout from system')";
+                con.createStatement().executeUpdate(SQL);
+                
                 LoginClass.showLogin();
                 Stage mainStage = (Stage) mainPane.getScene().getWindow();
                 mainStage.close();
@@ -135,7 +148,7 @@ public class MainFormController implements Initializable {
         MDIWindow mdiWindow = new MDIWindow("Tentang",
             new ImageView("/assets/about.png"),
             "About",
-            content, true, true);
+            content, true);
         //Set MDI Size
         mdiWindow.maxHeight(250);
         mdiWindow.maxWidth(340);

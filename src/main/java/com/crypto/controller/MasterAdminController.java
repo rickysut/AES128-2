@@ -5,9 +5,8 @@
  */
 package com.crypto.controller;
 
-import br.com.supremeforever.mdi.MDIWindow;
-import br.com.supremeforever.mdi.Utility;
 import com.crypto.AES128;
+import com.crypto.Prefs;
 import com.crypto.model.Admin;
 import com.crypto.utility.DbHandler;
 import com.jfoenix.controls.JFXButton;
@@ -17,10 +16,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,8 +33,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -80,6 +75,9 @@ public class MasterAdminController implements Initializable {
     private ObservableList<Admin> dataAdmin;
     private int mode = 1;
     private int LastClick = -1;
+    public String ADM_KODE = "";
+    Prefs pref = new Prefs();
+            
     /**
      * Initializes the controller class.
      */
@@ -94,18 +92,18 @@ public class MasterAdminController implements Initializable {
         colTelepon.setCellValueFactory(new PropertyValueFactory<Admin, String>("Telp"));
         colUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("Username"));
         colPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("Password"));
-                
+        ADM_KODE = pref.getPrefs("loged_kode");
         objDBHandler = new DbHandler();
         con = objDBHandler.getConnection();
-        buildData();
+        buildData(ADM_KODE);
         clearFields();
         //initFilter();
     }   
 
-    public void buildData(){        
+    public void buildData(String admkode){        
         dataAdmin = FXCollections.observableArrayList();
         try{      
-            String SQL = "Select * from admin Order By kode";            
+            String SQL = "Select * from admin where kode <> '" + admkode + "' and creator = '" + admkode + "'  Order By kode";            
             ResultSet rs = con.createStatement().executeQuery(SQL);  
             while(rs.next()){  
                 BooleanProperty isOn = btnSwitch.selectedProperty();
@@ -118,7 +116,7 @@ public class MasterAdminController implements Initializable {
                     cm.email.set(crypt.decrypt(rs.getString("email")));
                     cm.telp.set(crypt.decrypt(rs.getString("telp")));
                     cm.username.set(crypt.decrypt(rs.getString("username")));
-                    cm.password.set(crypt.decrypt(rs.getString("password")));
+                    cm.password.set("**********");
                     cm.status.set(rs.getString("status"));
                     dataAdmin.add(cm); 
                 } else {
@@ -129,7 +127,7 @@ public class MasterAdminController implements Initializable {
                     cm.email.set(rs.getString("email"));
                     cm.telp.set(rs.getString("telp"));
                     cm.username.set(rs.getString("username"));
-                    cm.password.set(rs.getString("password"));
+                    cm.password.set("**********");
                     cm.status.set(rs.getString("status"));
                     dataAdmin.add(cm);
                 }
@@ -229,7 +227,7 @@ public class MasterAdminController implements Initializable {
                         alert2.setTitle("Hapus data");
                         alert2.setHeaderText("Sukses menghapus data");
                         alert2.show();
-                        buildData();
+                        buildData(ADM_KODE);
                         clearFields();
                     }
                 } catch (Exception e){
@@ -278,7 +276,7 @@ public class MasterAdminController implements Initializable {
                 alert.setTitle("Simpan data");
                 alert.setHeaderText("Sukses menyimpan data");
                 alert.show();
-                buildData();
+                buildData(ADM_KODE);
                 clearFields();
             }
         }
@@ -287,8 +285,8 @@ public class MasterAdminController implements Initializable {
     @FXML protected void adm_savebutclick(ActionEvent event) throws SQLException {
         if (mode == 1){ //new record
            try{
-                String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status) "
-                     +  "VALUES (?,?,?,?,?,?,?,?)"; 
+                String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status,creator) "
+                     +  "VALUES (?,?,?,?,?,?,?,?,?)"; 
 
                  pst = con.prepareStatement(insert);
                  pst.setString(1, adm_kode.getText().toUpperCase());
@@ -299,6 +297,7 @@ public class MasterAdminController implements Initializable {
                  pst.setString(6, crypt.encrypt(adm_username.getText().toLowerCase()));
                  pst.setString(7, crypt.encrypt(adm_password.getText()));
                  pst.setString(8, "Aktif");
+                 pst.setString(9, ADM_KODE);
 
                  int success = pst.executeUpdate();
                  if (success == 1) {
@@ -306,7 +305,7 @@ public class MasterAdminController implements Initializable {
                      alert.setTitle("Tambah data");
                      alert.setHeaderText("Sukses menambah data");
                      alert.show();
-                     buildData();
+                     buildData(ADM_KODE);
                      clearFields();
                  }
            } catch (NullPointerException np){
@@ -357,7 +356,7 @@ public class MasterAdminController implements Initializable {
     
     @FXML protected void btnSwitchClick(){
         LastClick = adm_tableview.getSelectionModel().getSelectedIndex();
-        buildData();
+        buildData(ADM_KODE);
         adm_tableviewclick();
         adm_tableview.requestFocus();
     }

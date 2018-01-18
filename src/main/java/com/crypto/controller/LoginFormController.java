@@ -64,13 +64,24 @@ public class LoginFormController implements Initializable {
             //System.out.println(SQL);            
             ResultSet rs = con.createStatement().executeQuery(SQL);  
             if (rs.next()){
-                    prefs.setPrefs("loged_user", txtUsername.getText().toString().toUpperCase());
-                    MainClass mainForm = new MainClass();
-                    mainForm.start(MainClass.classStage);
+                prefs.setPrefs("loged_user", txtUsername.getText().toString().toUpperCase());
+                prefs.setPrefs("loged_kode", rs.getString("kode").toString());
+
+                try {
+                    SQL = "Insert into logging (log_date, log_kode, log_nama, log_value) values (now(), '"+
+                           rs.getString("kode").toString() + "', '" +
+                           txtUsername.getText().toString().toUpperCase() + "', 'Login to system')";
+                    con.createStatement().executeUpdate(SQL); 
                     
-                    Stage loginStage = (Stage) loginButton.getScene().getWindow();
-                    loginStage.close(); 
-                //}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                MainClass mainForm = new MainClass();
+                mainForm.start(MainClass.classStage);
+
+                Stage loginStage = (Stage) loginButton.getScene().getWindow();
+                loginStage.close();
 
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
