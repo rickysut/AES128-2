@@ -32,6 +32,7 @@
           <Menu mnemonicParsing="false" text="Transaksi">
                <items>
                   <MenuItem fx:id="admLelang" mnemonicParsing="false" onAction="#admLelangClick" text="Detail Lelang" />
+                  <MenuItem fx:id="admLog" mnemonicParsing="false" onAction="#admLogClick" text="Log Aktifitas" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Tentang">
                <items>

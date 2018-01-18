@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="formLog" prefHeight="400.0" prefWidth="673.0" style="-fx-background-color: #35739F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.crypto.controller.LogFormController">
+    <stylesheets>
+        <URL value="@/styles/adminform.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="19.0" layoutY="78.0" prefHeight="301.0" prefWidth="632.0">
+         <children>
+            <HBox layoutX="28.0" layoutY="390.0" prefHeight="25.0" prefWidth="632.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cari data" wrappingWidth="66.1181640625">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtSearch" layoutX="28.0" layoutY="390.0" onKeyReleased="#txtSearchReleased" prefHeight="25.0" prefWidth="534.0" promptText="isikan data yang mau dicari disini" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="but_searchclear" contentDisplay="TEXT_ONLY" layoutX="634.0" layoutY="390.0" mnemonicParsing="false" onAction="#butSearchClearClick" prefHeight="20.0" prefWidth="20.0" text="X" />
+               </children>
+            </HBox>
+            <TableView fx:id="log_tableview" layoutX="28.0" layoutY="427.0" prefHeight="207.0" prefWidth="632.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="427.0" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="col_logdate" prefWidth="110.0" text="TANGGAL" />
+                  <TableColumn fx:id="col_logkode" prefWidth="82.0" text="KODE USER" />
+                  <TableColumn fx:id="col_logname" prefWidth="215.0" text="NAMA" />
+                  <TableColumn fx:id="col_logstate" prefWidth="196.0" text="AKTIFITAS" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <Text fill="#f2ff02" layoutX="21.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOG HISTORY" textAlignment="CENTER" wrappingWidth="632.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

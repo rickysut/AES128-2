@@ -29,6 +29,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
@@ -67,7 +72,9 @@ public class MDICanvas extends VBox {
      */
     public MDICanvas(Theme theme) {
         super();
-
+        //BackgroundImage myBI= new BackgroundImage(new Image("my url",640,379,false,true),
+        //BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+        //  BackgroundSize.DEFAULT);
         Platform.runLater(()->{
             switch (theme) {
                 case DEFAULT:

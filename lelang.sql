@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50532
 File Encoding         : 65001
 
-Date: 2017-12-21 16:42:46
+Date: 2018-01-18 10:25:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,15 +28,17 @@ CREATE TABLE `admin` (
   `username` varchar(200) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `status` varchar(64) DEFAULT NULL,
+  `creator` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`nama`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('ADM009', '23859b583a6d0669b957830a223c8d46', '20dfe14552d466ec8a1d00246f58ebaa', 'a729ca23826cf12a51acb907c5101d82', '0f918610c9e42e3428d320af8b0d4632', 'd4c63737a8c619f47a6c1da0a1d868cb', '59561ba61a57c7c3331a44d5dc98b464', 'Aktif');
-INSERT INTO `admin` VALUES ('ADM007', '7c7e7f3db6c8869b50c62249f6eb7f4b', '19fb516c4eb26738b329cf71392b67a4', '6f19608d8cb16dc00a21d1482cc75bdb', '0b8b5877509a319a4c63986cc153e037', 'e788b6fa8e24d9ae5d62d8dc93b88bbc', 'e788b6fa8e24d9ae5d62d8dc93b88bbc', 'Aktif');
-INSERT INTO `admin` VALUES ('ADM008', '865124774e0324e7090d31e6c445bb42', 'af85d209050a7a6c832090844e93ce8a', '85a6cec94335cad457b5d1d48fb64698', '1d9186be295e74efc699897597926ad1', '865124774e0324e7090d31e6c445bb42', '865124774e0324e7090d31e6c445bb42', 'Aktif');
+INSERT INTO `admin` VALUES ('ADM009', '23859b583a6d0669b957830a223c8d46', '20dfe14552d466ec8a1d00246f58ebaa', 'a729ca23826cf12a51acb907c5101d82', '0f918610c9e42e3428d320af8b0d4632', 'd4c63737a8c619f47a6c1da0a1d868cb', '59561ba61a57c7c3331a44d5dc98b464', 'Aktif', null);
+INSERT INTO `admin` VALUES ('ADM007', '7c7e7f3db6c8869b50c62249f6eb7f4b', '19fb516c4eb26738b329cf71392b67a4', '6f19608d8cb16dc00a21d1482cc75bdb', '0b8b5877509a319a4c63986cc153e037', 'e788b6fa8e24d9ae5d62d8dc93b88bbc', 'e788b6fa8e24d9ae5d62d8dc93b88bbc', 'Aktif', null);
+INSERT INTO `admin` VALUES ('ADM008', '865124774e0324e7090d31e6c445bb42', 'af85d209050a7a6c832090844e93ce8a', '85a6cec94335cad457b5d1d48fb64698', '1d9186be295e74efc699897597926ad1', '865124774e0324e7090d31e6c445bb42', '865124774e0324e7090d31e6c445bb42', 'Aktif', null);
+INSERT INTO `admin` VALUES ('ADM010', 'a154feb8fa9d48f4007d7d7740abe855', 'f766af4082853ea41c4b9d101ab05f31', 'a23b9459cc695d956270e9233c0154ae', '4ad69850b0a250b4a95a2e830e8cc645', '56600a9ed6a93996149b04cc7ca3982a', '59561ba61a57c7c3331a44d5dc98b464', 'Aktif', 'ADM007');
 
 -- ----------------------------
 -- Table structure for `barang`
@@ -122,3 +124,25 @@ CREATE TABLE `lelang` (
 -- ----------------------------
 INSERT INTO `lelang` VALUES ('AUC003', 'a06a1a86f04d217b5b82e91edc9eef7c', '38bca1ce9cb0e93051807da1a42e4643');
 INSERT INTO `lelang` VALUES ('AUC004', 'a06a1a86f04d217b5b82e91edc9eef7c', 'e8f6c2c831c03b26e732a68f93aa108c');
+
+-- ----------------------------
+-- Table structure for `logging`
+-- ----------------------------
+DROP TABLE IF EXISTS `logging`;
+CREATE TABLE `logging` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_date` datetime DEFAULT NULL,
+  `log_kode` varchar(32) DEFAULT NULL,
+  `log_nama` varchar(64) DEFAULT NULL,
+  `log_value` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of logging
+-- ----------------------------
+INSERT INTO `logging` VALUES ('3', '2018-01-18 10:08:46', 'ADM007', 'ADMIN', 'Login to system');
+INSERT INTO `logging` VALUES ('4', '2018-01-18 10:08:51', 'ADM007', 'ADMIN', 'Logout from system');
+INSERT INTO `logging` VALUES ('5', '2018-01-18 10:09:12', 'ADM007', 'ADMIN', 'Login to system');
+INSERT INTO `logging` VALUES ('6', '2018-01-18 10:10:54', 'ADM007', 'ADMIN', 'Logout from system');
+INSERT INTO `logging` VALUES ('7', '2018-01-18 10:19:06', 'ADM007', 'ADMIN', 'Login to system');
