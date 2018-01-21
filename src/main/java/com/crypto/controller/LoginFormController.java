@@ -17,6 +17,7 @@ import com.crypto.MainClass;
 import com.crypto.Prefs;
 import com.crypto.utility.DbHandler;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -45,6 +46,7 @@ public class LoginFormController implements Initializable {
        objDBHandler = new DbHandler();
        con = objDBHandler.getConnection();
        txtUsername.requestFocus();
+       createMasterAdmin();
     }    
     
    public void clearLogin(){
@@ -96,6 +98,43 @@ public class LoginFormController implements Initializable {
            e.printStackTrace();
         }  
         
+    }
+
+    private void createMasterAdmin() {
+        try {
+            PreparedStatement pst;
+            String SQL = "Select * from admin where kode = 'ADM001'";       
+            //System.out.println(SQL);            
+            ResultSet rs = con.createStatement().executeQuery(SQL);  
+            if (!rs.next()){
+                try{
+                    String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status,creator) "
+                         +  "VALUES (?,?,?,?,?,?,?,?,?)"; 
+
+                     pst = con.prepareStatement(insert);
+                     pst.setString(1, "ADM001");
+                     pst.setString(2, crypt.encrypt("MASTER ADMIN"));
+                     pst.setString(3, crypt.encrypt("nowhere"));
+                     pst.setString(4, crypt.encrypt("dont@ask.com"));
+                     pst.setString(5, crypt.encrypt("nophone"));
+                     pst.setString(6, crypt.encrypt("admin"));
+                     pst.setString(7, crypt.encrypt("admin"));
+                     pst.setString(8, "Aktif");
+                     pst.setString(9, "SYSTEM");
+
+                     int success = pst.executeUpdate();
+                     if (success == 1) {
+                          
+                     }
+               } finally {
+                   
+               }
+
+            } 
+            
+        } catch(Exception e) {
+           e.printStackTrace();
+        }
     }
         
 }

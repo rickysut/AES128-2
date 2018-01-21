@@ -263,25 +263,33 @@ public class MainFormController implements Initializable {
      
      @FXML protected void admLogClick(){
         Node content = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LogForm.fxml"));
-            content = loader.load();
+        if (pref.getPrefs("loged_kode").equals("ADM001")){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LogForm.fxml"));
+                content = loader.load();
+            } 
+                catch (Exception e) {
+            }
+            count++;
+            //Create a Default MDI Withou Icon
+
+
+            MDIWindow mdiWindow = new MDIWindow("Logging",
+                new ImageView("/assets/history.png"),
+                "LOG AKTIFITAS",
+                content, true);
+            //Set MDI Size
+            mdiWindow.setMinSize(680, 450);
+            //mdiWindow.setMaxDisable(true);
+            //Add it to the container
+            mdiCanvas.addMDIWindow(mdiWindow);
+        } else {
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Otorisasi");
+            alert2.setHeaderText("Akses menu tidak diijinkan!");
+            alert2.show();
         } 
-            catch (Exception e) {
-        }
-        count++;
-        //Create a Default MDI Withou Icon
-        
-        
-        MDIWindow mdiWindow = new MDIWindow("Logging",
-            new ImageView("/assets/history.png"),
-            "LOG AKTIFITAS",
-            content, true);
-        //Set MDI Size
-        mdiWindow.setMinSize(680, 420);
-        //mdiWindow.setMaxDisable(true);
-        //Add it to the container
-        mdiCanvas.addMDIWindow(mdiWindow); 
+         
      }
      
      

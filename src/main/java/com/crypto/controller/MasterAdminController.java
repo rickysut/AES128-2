@@ -102,8 +102,14 @@ public class MasterAdminController implements Initializable {
 
     public void buildData(String admkode){        
         dataAdmin = FXCollections.observableArrayList();
-        try{      
-            String SQL = "Select * from admin where kode <> '" + admkode + "' and creator = '" + admkode + "'  Order By kode";            
+        try{  
+            String SQL = "";    
+            if (ADM_KODE.equals("ADM001")){
+                SQL = "Select * from admin Order By kode";       
+            } else {
+                SQL = "Select * from admin where kode = '" + admkode + "'" ;       
+            }
+                
             ResultSet rs = con.createStatement().executeQuery(SQL);  
             while(rs.next()){  
                 BooleanProperty isOn = btnSwitch.selectedProperty();
@@ -160,13 +166,20 @@ public class MasterAdminController implements Initializable {
             adm_kode.setText(selectedData.getKode());
             adm_kode.setEditable(false);
             adm_nama.setText(selectedData.getNama());
+            adm_nama.setEditable(true);
             adm_alamat.setText(selectedData.getAlamat());
+            adm_alamat.setEditable(true);
             adm_email.setText(selectedData.getEmail());
+            adm_email.setEditable(true);
             adm_telepon.setText(selectedData.getTelp());
+            adm_telepon.setEditable(true);
             adm_username.setText(selectedData.getUsername());
+            adm_username.setEditable(true);
             adm_password.setText(selectedData.getPassword());
+            adm_password.setEditable(true);
             //adm_status.getSelectionModel().select(selectedData.getStatus());
        }
+       
     }
     
     @FXML protected void adm_tableviewpressed(KeyEvent event){
@@ -178,11 +191,17 @@ public class MasterAdminController implements Initializable {
                 adm_kode.setText(selectedData.getKode());
                 adm_kode.setEditable(false);
                 adm_nama.setText(selectedData.getNama());
+                adm_nama.setEditable(true);
                 adm_alamat.setText(selectedData.getAlamat());
+                adm_alamat.setEditable(true);
                 adm_email.setText(selectedData.getEmail());
+                adm_email.setEditable(true);
                 adm_telepon.setText(selectedData.getTelp());
+                adm_telepon.setEditable(true);
                 adm_username.setText(selectedData.getUsername());
+                adm_username.setEditable(true);
                 adm_password.setText(selectedData.getPassword());
+                adm_password.setEditable(true);
                 //adm_status.getSelectionModel().select(selectedData.getStatus());
             }
         }
@@ -198,11 +217,17 @@ public class MasterAdminController implements Initializable {
                 adm_kode.setText(selectedData.getKode());
                 adm_kode.setEditable(false);
                 adm_nama.setText(selectedData.getNama());
+                adm_nama.setEditable(true);
                 adm_alamat.setText(selectedData.getAlamat());
+                adm_alamat.setEditable(true);
                 adm_email.setText(selectedData.getEmail());
+                adm_email.setEditable(true);
                 adm_telepon.setText(selectedData.getTelp());
+                adm_telepon.setEditable(true);
                 adm_username.setText(selectedData.getUsername());
+                adm_username.setEditable(true);
                 adm_password.setText(selectedData.getPassword());
+                adm_password.setEditable(true);
                 //adm_status.getSelectionModel().select(selectedData.getStatus());
             }
         }
@@ -243,7 +268,7 @@ public class MasterAdminController implements Initializable {
     }
     
     @FXML protected void adm_updatebutclick() throws SQLException{
-        if (mode == 2){
+        if ((mode == 2)&&(!adm_kode.getText().equals(null))) {
             BooleanProperty isOn = btnSwitch.selectedProperty();
             String updat = "UPDATE  admin set nama = ?, alamat = ?, email = ?, telp = ?, username = ?, password = ?, status = ?" + 
                                " WHERE kode = ?";
@@ -283,7 +308,7 @@ public class MasterAdminController implements Initializable {
     }
     
     @FXML protected void adm_savebutclick(ActionEvent event) throws SQLException {
-        if (mode == 1){ //new record
+        if ((mode == 1)&&(!adm_kode.getText().equals(null))){ //new record
            try{
                 String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status,creator) "
                      +  "VALUES (?,?,?,?,?,?,?,?,?)"; 
@@ -321,15 +346,34 @@ public class MasterAdminController implements Initializable {
 
     private void clearFields() {
         mode = 1;
-        adm_kode.setText(getNewKode());
-        adm_kode.setEditable(false);
-        adm_nama.setText(null);
-        adm_alamat.setText(null);
-        adm_email.setText(null);
-        adm_telepon.setText(null);
-        adm_username.setText(null);
-        adm_password.setText(null);
-        adm_nama.requestFocus();
+        if (ADM_KODE.equals("ADM001")){
+            adm_kode.setText(getNewKode());
+            adm_kode.setEditable(false);
+            adm_nama.setText(null);
+            adm_alamat.setText(null);
+            adm_email.setText(null);
+            adm_telepon.setText(null);
+            adm_username.setText(null);
+            adm_password.setText(null);
+            adm_nama.requestFocus();
+        } else {
+            adm_kode.setText(null);
+            adm_kode.setEditable(false);
+            adm_nama.setText(null);
+            adm_nama.setEditable(false);
+            adm_alamat.setText(null);
+            adm_alamat.setEditable(false);
+            adm_email.setText(null);
+            adm_email.setEditable(false);
+            adm_telepon.setText(null);
+            adm_telepon.setEditable(false);
+            adm_username.setText(null);
+            adm_username.setEditable(false);
+            adm_password.setText(null);
+            adm_password.setEditable(false);
+            adm_nama.requestFocus();
+            adm_deletebut.disableProperty().set(true);
+        }
     }
     
     private String getNewKode(){
@@ -342,10 +386,35 @@ public class MasterAdminController implements Initializable {
                 if (dres!=null){
                     dres = String.valueOf(Integer.parseInt(dres.substring(3)) + 1);
                     res = "ADM" + "000".substring(dres.length()) + dres;
-                } else res = "ADM001";
+                } else 
+                    res = "ADM001";
             } else {
                 res = "ADM001"; 
             }
+            /*if (res=="ADM001") {
+                try{
+                    String insert = "INSERT INTO admin(kode,nama,alamat,email,telp,username,password,status,creator) "
+                         +  "VALUES (?,?,?,?,?,?,?,?,?)"; 
+
+                     pst = con.prepareStatement(insert);
+                     pst.setString(1, res);
+                     pst.setString(2, crypt.encrypt("MASTER ADMIN"));
+                     pst.setString(3, crypt.encrypt("nowhere"));
+                     pst.setString(4, crypt.encrypt("dont@ask.com"));
+                     pst.setString(5, crypt.encrypt("nophone"));
+                     pst.setString(6, crypt.encrypt("admin"));
+                     pst.setString(7, crypt.encrypt("admin"));
+                     pst.setString(8, "Aktif");
+                     pst.setString(9, "SYSTEM");
+
+                     int success = pst.executeUpdate();
+                     if (success == 1) {
+                         res = "ADM002"; 
+                     }
+               } finally {
+                    res = "ADM002";
+               }
+            }*/
         }
         catch(Exception e){
           e.printStackTrace();
